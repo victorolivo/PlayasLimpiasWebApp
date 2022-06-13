@@ -20,6 +20,7 @@ namespace PlayasLimpiasWebApp.Controllers
 
         public IActionResult Index()
         {
+            int highlightedEventId = 0;
             return View();
         }
 
