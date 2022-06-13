@@ -15,25 +15,30 @@ namespace PlayasLimpiasWebApp.Services
             _eventContext = eventContext;
         }
 
+
+        //CRUD Operations: Role restricted at the controller
+
+        //Adds new event to the database
         public void AddEvent(Event @event)
         {
             _eventContext.Events.Add(@event);
             _eventContext.SaveChangesAsync();
         }
 
-        //Get the Events table and returns it as a List collection
+        //Gets the all the events
         public List<Event> GetAllEvents()
         {
             return new List<Event>(_eventContext.Events);
         }
 
-        public List<Event> GetMyEvents(int userId)
+        //Gets events that the current user is actively volunteering
+        public List<Event> GetMyEvents(User user)
         {
             List<Event> myEvents = new List<Event>();
             
             foreach(Event @event in _eventContext.Events)
             {
-                if (@event.VolunteersIdList.Contains(userId))
+                if (@event.VolunteersList.Contains(user))
                 {
                     myEvents.Add(@event);
                 }
@@ -42,14 +47,33 @@ namespace PlayasLimpiasWebApp.Services
             return myEvents;
         }
 
+        //Removes(Deletes) the selected event
         public void RemoveEvent(Event @event)
         {
-            throw new System.NotImplementedException();
+            _eventContext.Remove(@event);
         }
 
+        //Updates the modified event
         public void UpdateEvent(Event @event)
         {
-            throw new System.NotImplementedException();
+            Event current = _eventContext.Events.Find(@event.Id);
+
+            if(current != null)
+            {
+                current.Name = @event.Name;
+                current.Date = @event.Date;
+                current.NumVolunteersReq = @event.NumVolunteersReq;
+                current.Location = @event.Location;
+                
+                if(@event.Image != null)
+                {
+                    current.Image = @event.Image;
+                }
+
+                current.Description = @event.Description;
+
+                _eventContext.SaveChangesAsync();
+            }
         }
     }
 }

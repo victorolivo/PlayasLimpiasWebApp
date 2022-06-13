@@ -18,7 +18,7 @@ namespace PlayasLimpiasWebApp.Models
         public string Location { get; set; }
         public string Image { get; set; } = "";
         public string Description { get; set; } = "";
-        public List<int> VolunteersIdList { get; set; } = null;
+        public List<User> VolunteersList { get; set; } = null;
 
     }
 }

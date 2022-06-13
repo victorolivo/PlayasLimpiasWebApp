@@ -11,7 +11,7 @@ namespace PlayasLimpiasWebApp.Services
 
         //CRUD Operations
         List<Event> GetAllEvents ();
-        List<Event> GetMyEvents(int userId);
+        List<Event> GetMyEvents(User user);
 
         //'event' is a reserved keyword, the @ symbol specifies the word 'event' is being used as a variable name
         void AddEvent(Event @event);

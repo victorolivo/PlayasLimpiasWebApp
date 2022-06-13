@@ -1,8 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PlayasLimpiasWebApp.Models;
+using PlayasLimpiasWebApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,11 +27,29 @@ namespace PlayasLimpiasWebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            //Register the Database Service (PlayasLimpiasDB)
+            services.AddScoped<IData, PlayasLimpiasDB>();
+
+            //Connect application to the database (SQLite) - "PlayasLimpiasDB.db"
+            services.AddDbContext<EventContext>(options=> options.UseSqlite("Data Source=PlayasLimpiasDB.db"));
+
+            //Identity
+            services.AddIdentity<User, IdentityRole>(options =>
+            {
+                options.Password.RequiredLength = 5;
+            }).AddEntityFrameworkStores<UserContext>();
+
+            services.AddDbContext<UserContext>(options => options.UseSqlite("Data Source=UsersDB.db"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, EventContext eventContext, UserContext userContext)
         {
+            //Ensure the database is created 
+            eventContext.Database.EnsureCreated();
+            userContext.Database.EnsureCreated();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -37,6 +59,8 @@ namespace PlayasLimpiasWebApp
                 app.UseExceptionHandler("/Home/Error");
             }
             app.UseStaticFiles();
+
+            app.UseAuthentication();
 
             app.UseRouting();
 

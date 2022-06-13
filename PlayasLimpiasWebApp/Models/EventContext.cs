@@ -15,13 +15,14 @@ namespace PlayasLimpiasWebApp.Models
         public DbSet<Event> Events { get; set; }
 
         //Data seeding
-        //Only runs if the application database is not created yet
+        //Only runs once
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Event>().HasData(
 
                 new Event
                 {
+                    Id = 1,
                     Name = "After major holiday disaster",
                     Date = System.DateTime.Now,
                     NumVolunteersReq = 60,
@@ -31,6 +32,7 @@ namespace PlayasLimpiasWebApp.Models
 
                 new Event
                 {
+                    Id = 2,
                     Name = "Shoreline in Need!",
                     Date = System.DateTime.Now.AddDays(14),
                     NumVolunteersReq = 20,

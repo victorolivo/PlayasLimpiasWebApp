@@ -1,0 +1,24 @@
+﻿@model PlayasLimpiasWebApp.Models.EventCollectionViewModel
+
+@{
+    ViewData["Title"] = "All Events";
+}
+
+<h1>All Events</h1>
+
+@foreach(var item in Model.EventCollection)
+{
+    <div class="card" style="width: 18rem; display:inline-block; margin:20px;" >
+        <img src="~/images/b1.jpeg" class="card-img-top" alt="...">
+        <div class="card-body">
+             <h5 class="card-title">@item.Name</h5>
+             <h6>@item.Date</h6>
+             <p>@item.Description</p>
+            <a asp-action="Details" asp-controller="Event" asp-route-id="@item.Id">Details</a>
+        </div>
+    </div>
+}
+
+<a asp-action="Create">Create New</a>
+
+
