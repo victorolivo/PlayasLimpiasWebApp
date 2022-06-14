@@ -80,11 +80,11 @@ namespace PlayasLimpiasWebApp.Controllers
                     if (addedUser.UserName == "admin")
                     {
                         await UserManager.AddToRoleAsync(addedUser, "Admin");
-                        await UserManager.AddToRoleAsync(addedUser, "Customer");
+                        await UserManager.AddToRoleAsync(addedUser, "User");
                     }
                     else
                     {
-                        await UserManager.AddToRoleAsync(addedUser, "Customer");
+                        await UserManager.AddToRoleAsync(addedUser, "User");
                     }
 
                     return RedirectToAction("Login", "Account");
