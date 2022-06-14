@@ -26,7 +26,7 @@ namespace PlayasLimpiasWebApp.Controllers
         public IActionResult MyEvents()
         {
             EventCollectionViewModel ecvm = new EventCollectionViewModel();
-            ecvm.EventCollection = db.GetMyEvents((User)User.Identity);
+            ecvm.EventCollection = db.GetMyEvents((User)this.User.Identity);
             return View(ecvm);
         }
     }
