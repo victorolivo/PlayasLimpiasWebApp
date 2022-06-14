@@ -1,4 +1,6 @@
-﻿@{
+﻿@model PlayasLimpiasWebApp.Models.Event
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -8,9 +10,10 @@
     <div class="card" style="width: 18rem; display:inline-block; margin:20px;" >
         <img src="~/images/b1.jpeg" class="card-img-top" alt="...">
         <div class="card-body">
-             <h5 class="card-title">Event Name</h5>
-             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer</p>
-             <a asp-action="" asp-controller="">Details</a>
+             <h5 class="card-title">@Model.Name</h5>
+             <h6>@Model.Date</h6>
+             <p>@Model.Description</p>
+             <a asp-action="Details" asp-controller="Event" asp-route-id="@Model.Id">Details</a>
         </div>
     </div>
 

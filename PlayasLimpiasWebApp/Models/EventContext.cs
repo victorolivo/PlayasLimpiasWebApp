@@ -22,7 +22,7 @@ namespace PlayasLimpiasWebApp.Models
         {
             base.OnModelCreating(modelBuilder);
 
-            //Seed sample events
+            //Seeding: sample events
             modelBuilder.Entity<Event>().HasData(
 
                 new Event
@@ -47,7 +47,7 @@ namespace PlayasLimpiasWebApp.Models
 
                 );
 
-            //Add posible roles for users (Admin rights or User rights)
+            //Seeding: Add posible roles for users (Admin rights or User rights)
             modelBuilder.Entity<IdentityRole>().HasData(
                 new IdentityRole() 
                 { 

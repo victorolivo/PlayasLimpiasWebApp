@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PlayasLimpiasWebApp.Models;
+using PlayasLimpiasWebApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,15 +14,19 @@ namespace PlayasLimpiasWebApp.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        IData db;
+
+        public HomeController(ILogger<HomeController> logger, IData _data)
         {
             _logger = logger;
+            db = _data;
         }
 
         public IActionResult Index()
         {
-            int highlightedEventId = 0;
-            return View();
+            int highlightedEventId = 1;
+            Event @event = db.GetEventById(highlightedEventId);
+            return View(@event);
         }
 
         public IActionResult Privacy()

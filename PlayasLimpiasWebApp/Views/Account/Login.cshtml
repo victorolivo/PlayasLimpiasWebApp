@@ -18,7 +18,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
+                <input asp-for="Password" class="form-control" id="password"/>
+                <img onclick="showPassword()" src="~/images/hidden.png" width="20px"/>
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
@@ -37,3 +38,18 @@
     <p>Dont have an account?</p>
     <a asp-action="Register">Register here for free!</a>
 </div>
+
+<script>
+function showPassword() {
+  var x = document.getElementById("password");
+
+  if (x.type === "password") 
+  {
+    x.type = "text";
+  } 
+  else 
+  {
+    x.type = "password";
+  }
+}
+</script>

@@ -47,10 +47,17 @@ namespace PlayasLimpiasWebApp.Services
             return myEvents;
         }
 
-        //Removes(Deletes) the selected event
-        public void RemoveEvent(Event @event)
+        //Gets a specific event
+        public Event GetEventById(int id)
         {
-            _eventContext.Remove(@event);
+            return _eventContext.Events.Find(id);
+        }
+
+        //Removes(Deletes) the selected event
+        public void RemoveEvent(int id)
+        {
+            _eventContext.Remove(_eventContext.Find<Event>(id));
+            _eventContext.SaveChangesAsync();
         }
 
         //Updates the modified event
@@ -64,6 +71,7 @@ namespace PlayasLimpiasWebApp.Services
                 current.Date = @event.Date;
                 current.NumVolunteersReq = @event.NumVolunteersReq;
                 current.Location = @event.Location;
+                current.VolunteersList = @event.VolunteersList;
                 
                 if(@event.Image != null)
                 {
@@ -74,6 +82,12 @@ namespace PlayasLimpiasWebApp.Services
 
                 _eventContext.SaveChangesAsync();
             }
+        }
+
+
+        public User GetUser(string name)
+        {
+            return(_eventContext.Users.Find(name));
         }
     }
 }

@@ -13,10 +13,13 @@ namespace PlayasLimpiasWebApp.Services
         List<Event> GetAllEvents ();
         List<Event> GetMyEvents(User user);
 
+        Event GetEventById(int id);
+
         //'event' is a reserved keyword, the @ symbol specifies the word 'event' is being used as a variable name
         void AddEvent(Event @event);
-        void RemoveEvent(Event @event);
+        void RemoveEvent(int id);
         void UpdateEvent(Event @event);
+        User GetUser(string name);
 
     }
 }
