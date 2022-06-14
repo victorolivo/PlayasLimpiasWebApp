@@ -79,12 +79,12 @@ namespace PlayasLimpiasWebApp.Controllers
                     var addedUser = await UserManager.FindByNameAsync(registerViewModel.UserName);
                     if (addedUser.UserName == "admin")
                     {
-                        await UserManager.AddToRoleAsync(addedUser, "Admin");
-                        await UserManager.AddToRoleAsync(addedUser, "Customer");
+                        await UserManager.AddToRoleAsync(addedUser, "ADMIN");
+                        await UserManager.AddToRoleAsync(addedUser, "USER");
                     }
                     else
                     {
-                        await UserManager.AddToRoleAsync(addedUser, "Customer");
+                        await UserManager.AddToRoleAsync(addedUser, "USER");
                     }
 
                     return RedirectToAction("Login", "Account");

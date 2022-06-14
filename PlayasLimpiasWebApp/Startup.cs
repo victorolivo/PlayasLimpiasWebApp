@@ -32,23 +32,21 @@ namespace PlayasLimpiasWebApp
             services.AddScoped<IData, PlayasLimpiasDB>();
 
             //Connect application to the database (SQLite) - "PlayasLimpiasDB.db"
-            services.AddDbContext<EventContext>(options=> options.UseSqlite("Data Source=PlayasLimpiasDB.db"));
+            services.AddDbContext<EventContext>(options => options.UseSqlite("Data Source=PlayasLimpiasDB.db"));
 
             //Identity
             services.AddIdentity<User, IdentityRole>(options =>
             {
                 options.Password.RequiredLength = 5;
-            }).AddEntityFrameworkStores<UserContext>();
+            }).AddEntityFrameworkStores<EventContext>();
 
-            services.AddDbContext<UserContext>(options => options.UseSqlite("Data Source=UsersDB.db"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, EventContext eventContext, UserContext userContext)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, EventContext eventContext)
         {
             //Ensure the database is created 
             eventContext.Database.EnsureCreated();
-            userContext.Database.EnsureCreated();
 
             if (env.IsDevelopment())
             {
