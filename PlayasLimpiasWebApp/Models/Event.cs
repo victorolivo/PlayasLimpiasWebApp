@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PlayasLimpiasWebApp.Models
 {
@@ -17,7 +19,15 @@ namespace PlayasLimpiasWebApp.Models
         public int NumVolunteersReq { get; set; } = 1;
         [Required(ErrorMessage = "Please choose a location for this event.")]
         public string Location { get; set; }
+
+        [Display(Name = "Image Name")]
         public string Image { get; set; } = "";
+
+        [NotMapped] //images will not be included in db; they will be stored in wwwroot
+        [Display(Name = "Upload an image (optional)")]
+        public IFormFile ImageFile { get; set; }
+
+        [Display(Name = "Description (optional)")]
         public string Description { get; set; } = "";
         public List<User> VolunteersList { get; set; } = null;
 

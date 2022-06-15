@@ -3,6 +3,11 @@ using Microsoft.AspNetCore.Identity;
 using PlayasLimpiasWebApp.Models;
 using PlayasLimpiasWebApp.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
+using System;
+using System.Threading.Tasks;
 
 namespace PlayasLimpiasWebApp.Controllers
 {
@@ -11,9 +16,13 @@ namespace PlayasLimpiasWebApp.Controllers
         //Service injection - database
         IData db;
 
-        public EventController(IData data)
+        //Required to obtain the hosting enviroment
+        private readonly IWebHostEnvironment _hostingEnv;
+
+        public EventController(IData data, IWebHostEnvironment hostingEnv)
         {
             db = data;
+            _hostingEnv = hostingEnv;
         }
 
         //Index => All Events (UI)
@@ -31,10 +40,31 @@ namespace PlayasLimpiasWebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Event @event)
+        public async Task<IActionResult> Create(Event @event)
         {
             if (ModelState.IsValid) //confirms the form data is valid
             {
+                //Image Proccessing - Save uploaded image into wwwroot/images folder
+
+                string wwwRootPath = _hostingEnv.WebRootPath; //get the path for image storage in wwwroot mathching/according to hosting enviroment; physical path
+
+                //Image file info
+                string imageName = $"imageEventID({@event.Id})"; //custom name for the uploaded image
+                string imageExt = Path.GetExtension(@event.ImageFile.FileName); //get image extension
+
+                //Give the image a unique name to avoid data conflicts and assing it to the Event.Image property
+                @event.Image = imageName = $"{imageName}{imageExt}";
+
+                //Final image storage path string
+                string path = Path.Combine($"{wwwRootPath}/images/", imageName);
+
+                //Save the uploaded image
+                using(var stream = new FileStream(path, FileMode.Create))
+                {
+                    await @event.ImageFile.CopyToAsync(stream);
+                }
+
+                //Save event to database
                 db.AddEvent(@event);
                 ViewBag.Message = "Event added successfully!";
             }
