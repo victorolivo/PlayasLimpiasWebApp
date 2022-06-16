@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace PlayasLimpiasWebApp.Models
 {
@@ -22,6 +24,7 @@ namespace PlayasLimpiasWebApp.Models
         {
             base.OnModelCreating(modelBuilder);
 
+
             //Seeding: sample events
             modelBuilder.Entity<Event>().HasData(
 
@@ -34,8 +37,8 @@ namespace PlayasLimpiasWebApp.Models
                     Location = "Playa Escambrón, San Juan",
                     Image = "b1.jpeg",
                     Description = "Ayudame a salvar esta playa",
-                    VolunteersList = null
-                },
+                    VolunteersList = new List<User>()
+        },
 
                 new Event
                 {
@@ -46,7 +49,7 @@ namespace PlayasLimpiasWebApp.Models
                     Location = "Playa Escondida, Luquillo",
                     Image = "b1.jpeg",
                     Description = "Ayudame a salvar esta playa",
-                    VolunteersList = null
+                    VolunteersList = new List<User>()
                 }
 
                 );

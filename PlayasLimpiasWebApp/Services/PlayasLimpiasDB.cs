@@ -39,11 +39,13 @@ namespace PlayasLimpiasWebApp.Services
 
             foreach (Event @event in allEvents)
             {
-                if (@event.VolunteersList.Contains(user))
+                if (@event.VolunteersList != null && @event.VolunteersList.Contains(user))
                 {
                     myEvents.Add(@event);
                 }
             }
+
+
 
             return myEvents;
         }
@@ -85,7 +87,7 @@ namespace PlayasLimpiasWebApp.Services
 
                 current.Description = @event.Description;
 
-                _eventContext.SaveChangesAsync();
+                _eventContext.SaveChanges();
             }
         }
 

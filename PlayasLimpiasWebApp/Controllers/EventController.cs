@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using System;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace PlayasLimpiasWebApp.Controllers
 {
@@ -44,6 +45,9 @@ namespace PlayasLimpiasWebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Event @event)
         {
+            //Initialize the new event object list for volunteers
+            @event.VolunteersList = new List<User>();
+
             if (ModelState.IsValid) //confirms the form data is valid
             {
                 //Save event to database
@@ -109,7 +113,7 @@ namespace PlayasLimpiasWebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(Event @event)
+        public IActionResult Delete(Event @event)
         {
             //Delete event image from wwwroot
             var path = Path.Combine(_hostingEnv.WebRootPath, "images", @event.Image);
@@ -148,6 +152,7 @@ namespace PlayasLimpiasWebApp.Controllers
         }
 
         //In review
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> MyEvents()
         {
             EventCollectionViewModel ecvm = new EventCollectionViewModel();
