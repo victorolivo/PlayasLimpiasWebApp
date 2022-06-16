@@ -36,8 +36,7 @@ namespace PlayasLimpiasWebApp.Models
                     NumVolunteersReq = 60,
                     Location = "Playa Escambrón, San Juan",
                     Image = "b1.jpeg",
-                    Description = "Ayudame a salvar esta playa",
-                    VolunteersList = new List<User>()
+                    Description = "Ayudame a salvar esta playa"
         },
 
                 new Event
@@ -48,8 +47,7 @@ namespace PlayasLimpiasWebApp.Models
                     NumVolunteersReq = 20,
                     Location = "Playa Escondida, Luquillo",
                     Image = "b1.jpeg",
-                    Description = "Ayudame a salvar esta playa",
-                    VolunteersList = new List<User>()
+                    Description = "Ayudame a salvar esta playa"
                 }
 
                 );

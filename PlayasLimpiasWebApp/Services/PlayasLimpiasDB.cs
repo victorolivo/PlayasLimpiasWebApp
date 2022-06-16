@@ -39,7 +39,7 @@ namespace PlayasLimpiasWebApp.Services
 
             foreach (Event @event in allEvents)
             {
-                if (@event.VolunteersList != null && @event.VolunteersList.Contains(user))
+                if (@event.Volunteers != null && @event.Volunteers.Contains(user))
                 {
                     myEvents.Add(@event);
                 }
@@ -74,7 +74,7 @@ namespace PlayasLimpiasWebApp.Services
                 current.Date = @event.Date;
                 current.NumVolunteersReq = @event.NumVolunteersReq;
                 current.Location = @event.Location;
-                current.VolunteersList = @event.VolunteersList;
+                current.Volunteers = @event.Volunteers;
 
                 if (@event.Image != null)
                 {

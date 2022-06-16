@@ -45,8 +45,7 @@ namespace PlayasLimpiasWebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Event @event)
         {
-            //Initialize the new event object list for volunteers
-            @event.VolunteersList = new List<User>();
+            
 
             if (ModelState.IsValid) //confirms the form data is valid
             {
@@ -143,7 +142,12 @@ namespace PlayasLimpiasWebApp.Controllers
             User currentUser = await UserManager.FindByNameAsync(userName);
             Event @event = db.GetEventById(id);
 
-            @event.VolunteersList.Add(currentUser);
+            if(@event.Volunteers == null)
+            {
+                @event.Volunteers = new List<User>();
+            }
+            
+            @event.Volunteers.Add(currentUser);
             db.UpdateEvent(@event);
 
             ViewBag.Message = "Thanks for volunteering!";

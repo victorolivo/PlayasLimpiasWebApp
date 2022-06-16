@@ -8,5 +8,7 @@ namespace PlayasLimpiasWebApp.Models
         //ID is inherited from the base class
         public string FirstName { get; set; }
         public string LastName { get; set; }
+
+        
     }
 }

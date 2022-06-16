@@ -29,7 +29,7 @@ namespace PlayasLimpiasWebApp.Models
 
         [Display(Name = "Description (optional)")]
         public string Description { get; set; } = "";
-        public List<User> VolunteersList { get; set; }
+        public ICollection<User> Volunteers { get; set; }
 
     }
 }
