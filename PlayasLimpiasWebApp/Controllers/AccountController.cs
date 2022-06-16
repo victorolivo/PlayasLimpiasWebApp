@@ -13,6 +13,9 @@ namespace PlayasLimpiasWebApp.Controllers
         private UserManager<User> UserManager;
         private RoleManager<IdentityRole> RoleManager;
 
+        //
+        public User currentUser { get; set; }
+
         public AccountController(SignInManager<User> signInManager, UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
         {
             SignInManager = signInManager;

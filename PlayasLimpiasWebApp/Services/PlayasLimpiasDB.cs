@@ -35,8 +35,9 @@ namespace PlayasLimpiasWebApp.Services
         public List<Event> GetMyEvents(User user)
         {
             List<Event> myEvents = new List<Event>();
-            
-            foreach(Event @event in _eventContext.Events)
+            List<Event> allEvents = GetAllEvents();
+
+            foreach (Event @event in allEvents)
             {
                 if (@event.VolunteersList.Contains(user))
                 {
@@ -65,17 +66,21 @@ namespace PlayasLimpiasWebApp.Services
         {
             Event current = _eventContext.Events.Find(@event.Id);
 
-            if(current != null)
+            if (current != null)
             {
                 current.Name = @event.Name;
                 current.Date = @event.Date;
                 current.NumVolunteersReq = @event.NumVolunteersReq;
                 current.Location = @event.Location;
                 current.VolunteersList = @event.VolunteersList;
-                
-                if(@event.Image != null)
+
+                if (@event.Image != null)
                 {
                     current.Image = @event.Image;
+                }
+                else
+                {
+                    current.Image = "b1.jpeg";
                 }
 
                 current.Description = @event.Description;
@@ -85,9 +90,5 @@ namespace PlayasLimpiasWebApp.Services
         }
 
 
-        public User GetUser(string name)
-        {
-            return(_eventContext.Users.Find(name));
-        }
     }
 }

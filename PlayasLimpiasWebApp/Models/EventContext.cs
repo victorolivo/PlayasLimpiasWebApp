@@ -32,7 +32,9 @@ namespace PlayasLimpiasWebApp.Models
                     Date = System.DateTime.Now,
                     NumVolunteersReq = 60,
                     Location = "Playa Escambrón, San Juan",
-                    Description = "Ayudame a salvar esta playa"
+                    Image = "b1.jpeg",
+                    Description = "Ayudame a salvar esta playa",
+                    VolunteersList = null
                 },
 
                 new Event
@@ -42,7 +44,9 @@ namespace PlayasLimpiasWebApp.Models
                     Date = System.DateTime.Now.AddDays(14),
                     NumVolunteersReq = 20,
                     Location = "Playa Escondida, Luquillo",
-                    Description = "Ayudame a salvar esta playa"
+                    Image = "b1.jpeg",
+                    Description = "Ayudame a salvar esta playa",
+                    VolunteersList = null
                 }
 
                 );

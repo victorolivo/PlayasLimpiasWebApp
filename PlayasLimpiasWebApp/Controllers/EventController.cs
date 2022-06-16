@@ -15,14 +15,16 @@ namespace PlayasLimpiasWebApp.Controllers
     {
         //Service injection - database
         IData db;
+        private UserManager<User> UserManager;
 
         //Required to obtain the hosting enviroment
         private readonly IWebHostEnvironment _hostingEnv;
 
-        public EventController(IData data, IWebHostEnvironment hostingEnv)
+        public EventController(IData data, IWebHostEnvironment hostingEnv, UserManager<User> userManager)
         {
             db = data;
             _hostingEnv = hostingEnv;
+            UserManager = userManager;
         }
 
         //Index => All Events (UI)
@@ -44,6 +46,11 @@ namespace PlayasLimpiasWebApp.Controllers
         {
             if (ModelState.IsValid) //confirms the form data is valid
             {
+                //Save event to database
+                //Event needs to be sabe into the database first so that a id (PK) is generated
+                db.AddEvent(@event);
+
+
                 //Image Proccessing - Save uploaded image into wwwroot/images folder
 
                 string wwwRootPath = _hostingEnv.WebRootPath; //get the path for image storage in wwwroot mathching/according to hosting enviroment; physical path
@@ -64,8 +71,7 @@ namespace PlayasLimpiasWebApp.Controllers
                     await @event.ImageFile.CopyToAsync(stream);
                 }
 
-                //Save event to database
-                db.AddEvent(@event);
+                db.UpdateEvent(@event);//Saves image addition
                 ViewBag.Message = "Event added successfully!";
             }
 
@@ -90,9 +96,28 @@ namespace PlayasLimpiasWebApp.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]//Confirmation Page
         public IActionResult Delete(int id)
         {
-            db.RemoveEvent(id);
+            Event @event = db.GetEventById(id);
+
+            if (@event == null)
+                return NotFound();
+
+
+            return View(@event);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(Event @event)
+        {
+            //Delete event image from wwwroot
+            var path = Path.Combine(_hostingEnv.WebRootPath, "images", @event.Image);
+            if (System.IO.File.Exists(path))
+            {
+                System.IO.File.Delete(path);
+            }
+            db.RemoveEvent(@event.Id);
             return RedirectToAction("Index");
         }
 
@@ -107,25 +132,29 @@ namespace PlayasLimpiasWebApp.Controllers
             return View(@event);
         }
 
-        [Authorize(Roles = "USER")]
-        public IActionResult Voluteer(int eventId)
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> Volunteer(int id)
         {
-            var userName = this.User.Identity.Name;
-            User currentUser = db.GetUser(userName);
-            Event @event = db.GetEventById(eventId);
+            var userName = HttpContext.User.Identity.Name;
+            User currentUser = await UserManager.FindByNameAsync(userName);
+            Event @event = db.GetEventById(id);
 
             @event.VolunteersList.Add(currentUser);
             db.UpdateEvent(@event);
 
-            return View();
+            ViewBag.Message = "Thanks for volunteering!";
+
+            return View("Details", @event);
         }
 
         //In review
-        public IActionResult MyEvents()
+        public async Task<IActionResult> MyEvents()
         {
             EventCollectionViewModel ecvm = new EventCollectionViewModel();
-            var userName = this.User.Identity.Name;
-            User currentUser = db.GetUser(userName);
+
+            var userName = HttpContext.User.Identity.Name;
+            User currentUser = await UserManager.FindByNameAsync(userName);
+
             ecvm.EventCollection = db.GetMyEvents(currentUser);
             return View(ecvm);
         }

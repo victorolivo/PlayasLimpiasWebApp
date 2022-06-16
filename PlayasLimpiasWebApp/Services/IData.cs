@@ -19,7 +19,6 @@ namespace PlayasLimpiasWebApp.Services
         void AddEvent(Event @event);
         void RemoveEvent(int id);
         void UpdateEvent(Event @event);
-        User GetUser(string name);
 
     }
 }

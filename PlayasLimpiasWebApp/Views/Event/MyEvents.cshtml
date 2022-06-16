@@ -1,10 +1,10 @@
 ﻿@model PlayasLimpiasWebApp.Models.EventCollectionViewModel
 
 @{
-    ViewData["Title"] = "All Events";
+    ViewData["Title"] = "My Events";
 }
 
-<h1>All Events</h1>
+<h1>My Events</h1>
 
 @foreach(var item in Model.EventCollection)
 {
@@ -15,11 +15,11 @@
              <h6>@item.Date</h6>
              <p>@item.Description @item.Image</p>
             <a asp-action="Details" asp-controller="Event" asp-route-id="@item.Id">Details</a>
-            <a asp-action="Delete" asp-controller="Event" asp-route-id="@item.Id">Delete</a>
         </div>
     </div>
 }
 
-<a asp-action="Create">Create New</a>
-
+<p>
+    <a asp-action="Index">View All Events</a>
+</p>
 
