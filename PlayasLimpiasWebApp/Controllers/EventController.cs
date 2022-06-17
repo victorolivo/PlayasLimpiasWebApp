@@ -16,6 +16,8 @@ namespace PlayasLimpiasWebApp.Controllers
     {
         //Service injection - database
         IData db;
+
+        //Required to get the user from Identity
         private UserManager<User> UserManager;
 
         //Required to obtain the hosting enviroment
@@ -140,31 +142,27 @@ namespace PlayasLimpiasWebApp.Controllers
         {
             var userName = HttpContext.User.Identity.Name;
             User currentUser = await UserManager.FindByNameAsync(userName);
+
             Event @event = db.GetEventById(id);
 
-            if(@event.Volunteers == null)
-            {
-                @event.Volunteers = new List<User>();
-            }
-            
-            @event.Volunteers.Add(currentUser);
-            db.UpdateEvent(@event);
+            db.VolunteerRelationship(@event, currentUser);
 
             ViewBag.Message = "Thanks for volunteering!";
 
             return View("Details", @event);
         }
 
-        //In review
         [Authorize(Roles = "User")]
         public async Task<IActionResult> MyEvents()
         {
             EventCollectionViewModel ecvm = new EventCollectionViewModel();
 
+            //Get user
             var userName = HttpContext.User.Identity.Name;
             User currentUser = await UserManager.FindByNameAsync(userName);
 
             ecvm.EventCollection = db.GetMyEvents(currentUser);
+
             return View(ecvm);
         }
     }

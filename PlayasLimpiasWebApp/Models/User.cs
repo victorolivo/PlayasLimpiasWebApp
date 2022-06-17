@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace PlayasLimpiasWebApp.Models
@@ -9,6 +10,6 @@ namespace PlayasLimpiasWebApp.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-        
+        public List<User_Event> UserEvents { get; set; }
     }
 }

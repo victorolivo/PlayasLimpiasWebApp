@@ -9,7 +9,7 @@ namespace PlayasLimpiasWebApp.Models
     public class Event
     {
         [Key]
-        //Database generated
+        //Database generated Id
         public int Id { get; set; }
         [Required(ErrorMessage = "Please enter a name for this event.")]
         public string Name { get; set; }
@@ -29,7 +29,8 @@ namespace PlayasLimpiasWebApp.Models
 
         [Display(Name = "Description (optional)")]
         public string Description { get; set; } = "";
-        public ICollection<User> Volunteers { get; set; }
+
+        public List<User_Event> UserEvents { get; set; }
 
     }
 }

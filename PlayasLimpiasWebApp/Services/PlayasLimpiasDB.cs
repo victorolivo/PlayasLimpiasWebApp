@@ -6,8 +6,9 @@ namespace PlayasLimpiasWebApp.Services
     public class PlayasLimpiasDB : IData
     {
         public List<Event> Events { get; set; }
+        EventContext IData._eventContext { get; set; }
 
-        private EventContext _eventContext;
+        public EventContext _eventContext;
 
         //Constructor: EntityFramework injection
         public PlayasLimpiasDB(EventContext eventContext)
@@ -35,18 +36,20 @@ namespace PlayasLimpiasWebApp.Services
         public List<Event> GetMyEvents(User user)
         {
             List<Event> myEvents = new List<Event>();
-            List<Event> allEvents = GetAllEvents();
 
-            foreach (Event @event in allEvents)
+            if (_eventContext.UserEvents != null)
             {
-                if (@event.Volunteers != null && @event.Volunteers.Contains(user))
+                foreach (var user_Event in _eventContext.UserEvents)
                 {
-                    myEvents.Add(@event);
+                    if (user_Event.User == user)
+                    {
+                        myEvents.Add(_eventContext.Events.Find(user_Event.EventId));
+                    }
                 }
             }
 
 
-
+            
             return myEvents;
         }
 
@@ -74,7 +77,6 @@ namespace PlayasLimpiasWebApp.Services
                 current.Date = @event.Date;
                 current.NumVolunteersReq = @event.NumVolunteersReq;
                 current.Location = @event.Location;
-                current.Volunteers = @event.Volunteers;
 
                 if (@event.Image != null)
                 {
@@ -91,6 +93,17 @@ namespace PlayasLimpiasWebApp.Services
             }
         }
 
+        public void VolunteerRelationship(Event @event, User user)
+        {
+            _eventContext.UserEvents.Add(new User_Event
+            {
+                Event = @event,
+                User = user,
+                EventId = @event.Id,
+                UserId = user.Id
+            });
 
+            _eventContext.SaveChangesAsync();
+        }
     }
 }

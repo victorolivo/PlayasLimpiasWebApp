@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace PlayasLimpiasWebApp.Models
 {
-    //Class representing model in Database
+    //Class representing models in Database
     public class EventContext : IdentityDbContext<User>
     {
         public EventContext(DbContextOptions<EventContext> options) : base(options)
@@ -15,9 +15,10 @@ namespace PlayasLimpiasWebApp.Models
 
         //Create Tables
 
-        //Table Events
+        //Tables (Users table is automatically generated when using Identity)
         public DbSet<Event> Events { get; set; }
-
+        public DbSet<User_Event> UserEvents { get; set; }
+        
         //Data seeding
         //Only runs once
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -68,10 +69,18 @@ namespace PlayasLimpiasWebApp.Models
                     Id = "c7b013f0-5201-4317-abd8-c211f91b7330",
                     Name = "User",
                     ConcurrencyStamp = "2",
-                    NormalizedName = "USER"
+                    NormalizedName = "USER",
                 }
 
                 );
+
+            //Instruction for mapping the many-to-many relationship
+            modelBuilder.Entity<User_Event>().HasOne(x => x.Event)
+                .WithMany(x => x.UserEvents)
+                .HasForeignKey(x => x.EventId);
+            modelBuilder.Entity<User_Event>().HasOne(x => x.User)
+                .WithMany(x => x.UserEvents)
+                .HasForeignKey(x => x.UserId);
 
 
         }

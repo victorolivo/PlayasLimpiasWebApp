@@ -8,6 +8,7 @@ namespace PlayasLimpiasWebApp.Services
     {
 
         List<Event> Events { get; set; }
+        public EventContext _eventContext { get; set; }
 
         //CRUD Operations
         List<Event> GetAllEvents ();
@@ -19,6 +20,8 @@ namespace PlayasLimpiasWebApp.Services
         void AddEvent(Event @event);
         void RemoveEvent(int id);
         void UpdateEvent(Event @event);
+
+        void VolunteerRelationship(Event @event, User user);
 
     }
 }
