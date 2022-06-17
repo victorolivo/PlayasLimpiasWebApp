@@ -62,7 +62,7 @@ namespace PlayasLimpiasWebApp.Services
         //Removes(Deletes) the selected event
         public void RemoveEvent(int id)
         {
-            _eventContext.Remove(_eventContext.Find<Event>(id));
+            _eventContext.Remove<Event>(_eventContext.Find<Event>(id));
             _eventContext.SaveChangesAsync();
         }
 
@@ -104,6 +104,17 @@ namespace PlayasLimpiasWebApp.Services
             });
 
             _eventContext.SaveChangesAsync();
+        }
+
+        //Remove volunteer ralationship entries when event is deleted
+        public void RemoveRelationship(Event @event)
+        {
+            foreach (var ue in _eventContext.UserEvents)
+            {
+                if(ue.EventId == @event.Id)
+                    _eventContext.Remove<User_Event>(ue);
+            }
+            
         }
     }
 }

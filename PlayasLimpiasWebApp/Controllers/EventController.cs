@@ -122,6 +122,7 @@ namespace PlayasLimpiasWebApp.Controllers
             {
                 System.IO.File.Delete(path);
             }
+            db.RemoveRelationship(@event);
             db.RemoveEvent(@event.Id);
             return RedirectToAction("Index");
         }

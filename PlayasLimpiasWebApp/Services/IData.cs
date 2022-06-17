@@ -22,6 +22,7 @@ namespace PlayasLimpiasWebApp.Services
         void UpdateEvent(Event @event);
 
         void VolunteerRelationship(Event @event, User user);
+        void RemoveRelationship(Event @event);
 
     }
 }
