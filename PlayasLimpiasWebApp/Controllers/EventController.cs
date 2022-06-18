@@ -161,8 +161,7 @@ namespace PlayasLimpiasWebApp.Controllers
 
             db.VolunteerRelationship(@event, currentUser);
 
-            ViewBag.Message = "Thanks for volunteering!";
-
+            ViewBag.Message = "Success";
             return View("Details", @event);
         }
 

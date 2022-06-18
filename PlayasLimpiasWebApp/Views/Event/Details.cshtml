@@ -4,11 +4,13 @@
     ViewData["Title"] = "Details";
 }
 
-<h1 class="display-1" style="color: seashell;">Details</h1>
+<h1 class="display-1" style="color: seashell;">Event Details</h1>
 
 <div>
-    <h4>Event</h4>
     <hr />
+
+    <img src="~/images/@Model.Image" class="rounded" style="max-width:35%; margin:20px;" alt="...">
+
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Id)
@@ -32,7 +34,7 @@
             @Html.DisplayNameFor(model => model.NumVolunteersReq)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NumVolunteersReq)
+            <h2>@Html.DisplayFor(model => model.NumVolunteersReq)</h2>
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Location)
@@ -54,11 +56,40 @@
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Volunteer" asp-controller="Event" asp-route-id="@Model.Id">Volunteer for this event</a>
-    <a asp-action="Edit" asp-controller="Event" asp-route-id="@Model.Id">Edit</a>
+<div style="margin-top:50px; margin-bottom:100px;">
+    <div id="liveAlertPlaceholder"></div>
+
+    @if(ViewBag.Message == "Success")
+    {
+        <div class="alert alert-warning" role="alert">
+            <p style="transform: rotate(0);">
+                Thanks for Volunteerig! You are awesome! <a asp-action="MyEvents" asp-controller="Event" class="text-secondary stretched-link" >See your events here!</a>
+            </p>
+            <div class="atcb" style="display:none;">
+                {
+                    "name":"@Model.Name Event",
+                    "description":"@Model.Description",
+                    "startDate":"@Model.Date.ToString("yyyy-MM-dd")",
+                    "endDate":"@Model.Date.AddDays(1).ToString("yyyy-MM-dd")",
+                    "location":"@Model.Location",
+                    "label":"Set a Reminder",
+                    "options":[
+                        "Google",
+                        "Outlook.com",
+                        "Yahoo"
+                    ]
+                }
+            </div>
+        </div>
+
+    }
+
+    <a asp-action="Volunteer" asp-controller="Event" asp-route-id="@Model.Id" class="btn btn-warning">Volunteer for this event</a>
+
+    
+    <a asp-action="Edit" asp-controller="Event" asp-route-id="@Model.Id" class="btn btn-outline-warning" >Edit</a>
     <br />
-    @ViewBag.Message
+    
     <br />
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="text-warning">Back to List</a>
 </div>
