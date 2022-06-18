@@ -21,6 +21,7 @@ a {
     position: relative;
     top:inherit;
     z-index: 10;
+    margin-top:80px;
 }
 
 .btn-primary {
