@@ -34,19 +34,20 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="About">About</a>
                         </li>
+
+                    </ul>
+
+                     <div class="col-4 d-flex justify-content-end align-items-center">
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-light" style="margin-left:80px" asp-controller="Account" asp-action="Logout">Logout</a>
-                            </li>
+                            <a class="btn btn-sm btn-outline-secondary" asp-controller="Account" asp-action="Logout">Logout</a>
                         }
                         else
                         {
-                            <li class="nav-item" style="margin-left:80px">
-                                <a class="nav-link text-light" asp-controller="Account" asp-action="Login">Login</a>
-                            </li>
+                            <a class="btn btn-sm btn-outline-secondary" asp-controller="Account" asp-action="Login">Login</a>
                         }
-                    </ul>
+                    </div>
+
                 </div>
             </div>
         </nav>

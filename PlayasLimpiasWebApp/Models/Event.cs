@@ -29,7 +29,7 @@ namespace PlayasLimpiasWebApp.Models
         public IFormFile ImageFile { get; set; }
 
         [Display(Name = "Description (optional)")]
-        public string Description { get; set; } = "";
+        public string Description { get; set; }
 
         public List<User_Event> UserEvents { get; set; }
 
