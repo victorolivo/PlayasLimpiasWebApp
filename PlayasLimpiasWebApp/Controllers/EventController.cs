@@ -116,12 +116,17 @@ namespace PlayasLimpiasWebApp.Controllers
         [HttpPost]
         public IActionResult Delete(Event @event)
         {
+            //Get event image name
+            string eventImageName = (db.GetEventById(@event.Id)).Image;
+
             //Delete event image from wwwroot
-            var path = Path.Combine(_hostingEnv.WebRootPath, "images", @event.Image);
+            var path = Path.Combine(_hostingEnv.WebRootPath, "images", eventImageName);
             if (System.IO.File.Exists(path))
             {
                 System.IO.File.Delete(path);
             }
+
+
             db.RemoveRelationship(@event);
             db.RemoveEvent(@event.Id);
             return RedirectToAction("Index");

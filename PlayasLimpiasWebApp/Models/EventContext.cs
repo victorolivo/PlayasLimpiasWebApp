@@ -35,6 +35,7 @@ namespace PlayasLimpiasWebApp.Models
                     Name = "After major holiday disaster",
                     Date = System.DateTime.Now,
                     NumVolunteersReq = 60,
+                    NumVolunteers = 23,
                     Location = "Playa Escambrón, San Juan",
                     Image = "b1.jpeg",
                     Description = "Ayudame a salvar esta playa"
@@ -46,6 +47,7 @@ namespace PlayasLimpiasWebApp.Models
                     Name = "Shoreline in Need!",
                     Date = System.DateTime.Now.AddDays(14),
                     NumVolunteersReq = 20,
+                    NumVolunteers  = 11,
                     Location = "Playa Escondida, Luquillo",
                     Image = "b1.jpeg",
                     Description = "Ayudame a salvar esta playa"

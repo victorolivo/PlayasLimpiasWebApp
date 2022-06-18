@@ -16,12 +16,13 @@ namespace PlayasLimpiasWebApp.Models
         [Required(ErrorMessage = "Please enter a date for this event.")]
         public DateTime Date { get; set; }
         [Display(Name = "Estimated Number of Volunteers")]
-        public int NumVolunteersReq { get; set; } = 1;
+        public int NumVolunteersReq { get; set; }
+        public int NumVolunteers { get; set; }
         [Required(ErrorMessage = "Please choose a location for this event.")]
         public string Location { get; set; }
 
         [Display(Name = "Image Name")]
-        public string Image { get; set; } = "";
+        public string Image { get; set; }
 
         [NotMapped] //images will not be included in db; they will be stored in wwwroot
         [Display(Name = "Upload an image (optional)")]
