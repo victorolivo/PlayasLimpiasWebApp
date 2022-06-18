@@ -11,9 +11,9 @@
     <div class="card" style="width: 18rem; display:inline-block; margin:20px;" >
         <img src="~/images/@item.Image" class="card-img-top" alt="...">
         <div class="card-body">
-             <h5 class="card-title">@item.Name</h5>
+             <h5 class="card-title" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">@item.Name</h5>
              <h6>@item.Date</h6>
-             <p>@item.Description @item.Image</p>
+             <p class="eventDescription">@item.Description</p>
             <a asp-action="Details" asp-controller="Event" asp-route-id="@item.Id">Details</a>
             <a asp-action="Delete" asp-controller="Event" asp-route-id="@item.Id">Delete</a>
         </div>
