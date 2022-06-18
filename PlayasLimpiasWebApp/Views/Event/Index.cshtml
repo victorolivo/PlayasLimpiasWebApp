@@ -5,7 +5,7 @@
 }
 
 <h1 class="display-1" style="color: seashell;">All Events</h1>
-
+<hr />
 @foreach(var item in Model.EventCollection)
 {
     <div class="card text-bg-dark mb-3" style="width: 18rem; display:inline-block; margin:20px;" >
@@ -14,8 +14,8 @@
              <h5 class="card-title" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">@item.Name</h5>
              <h6>@item.Date.ToString("D")</h6>
              <p class="eventDescription">@item.Description</p>
-            <a asp-action="Details" asp-controller="Event" asp-route-id="@item.Id">Details</a>
-            <a asp-action="Delete" asp-controller="Event" asp-route-id="@item.Id">Delete</a>
+            <a class="btn btn-sm btn-warning" asp-action="Details" asp-controller="Event" asp-route-id="@item.Id">Details</a>
+            <a class="btn btn-sm btn-outline-danger" asp-action="Delete" asp-controller="Event" asp-route-id="@item.Id">Delete</a>
         </div>
     </div>
 }

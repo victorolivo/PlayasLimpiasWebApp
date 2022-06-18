@@ -159,6 +159,9 @@ namespace PlayasLimpiasWebApp.Controllers
 
             Event @event = db.GetEventById(id);
 
+            //Check if the user is already volunteering for this event
+
+
             db.VolunteerRelationship(@event, currentUser);
 
             ViewBag.Message = "Success";

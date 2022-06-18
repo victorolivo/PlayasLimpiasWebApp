@@ -6,10 +6,10 @@
 
 <h1 class="display-1" style="color: seashell;">Event Details</h1>
 
-<div>
+<div style="background-color: #111; padding: 20px; border-radius: 8px;">
     <hr />
 
-    <img src="~/images/@Model.Image" class="rounded" style="max-width:35%; margin:20px;" alt="...">
+    <img src="~/images/@Model.Image" class="rounded" style="max-width:35%; margin-bottom:20px;" alt="...">
 
     <dl class="row">
         <dt class = "col-sm-2">
@@ -57,7 +57,6 @@
     </dl>
 </div>
 <div style="margin-top:50px; margin-bottom:100px;">
-    <div id="liveAlertPlaceholder"></div>
 
     @if(ViewBag.Message == "Success")
     {
