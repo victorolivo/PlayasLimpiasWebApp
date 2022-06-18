@@ -24,9 +24,7 @@ namespace PlayasLimpiasWebApp.Controllers
 
         public IActionResult Index()
         {
-            int highlightedEventId = 1;
-            Event @event = db.GetEventById(highlightedEventId);
-            return View(@event);
+            return View();
         }
 
         public IActionResult Privacy()

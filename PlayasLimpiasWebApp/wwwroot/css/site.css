@@ -12,6 +12,16 @@ a {
   color: #0366d6;
 }
 
+.homeLogoImg {
+    max-width: 800px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+    position: relative;
+    top:inherit;
+    z-index: 10;
+}
 
 .btn-primary {
   color: #fff;
@@ -63,6 +73,30 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
 }
+
+.landingPage{
+    color:seashell;
+}
+
+.landingPage video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.8;
+    z-index: 0;
+}
+
+.onTop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 20;
+    width: 100%;
+}
+
 .footer {
   position: absolute;
   bottom: 0;
