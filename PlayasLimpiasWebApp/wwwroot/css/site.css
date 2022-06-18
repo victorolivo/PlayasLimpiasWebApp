@@ -1,6 +1,19 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+@font-face {
+    src: url("../fonts/Mahatma.ttf");
+    font-family: maha;
+}
+
+@font-face{
+    src: url("../fonts/NotoSerif-Regular.ttf");
+    font-family: noto;
+}
+
+h1{
+    font-family: maha;
+}
 a.navbar-brand {
   white-space: normal;
   text-align: center;
@@ -71,12 +84,20 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    color: aliceblue;
 }
 
-.landingPage{
-    color:seashell;
+
+.backImg {
+    background-image: url("../images/backgroundImg.jpg");
+    background-size: cover;
+    background-blend-mode: darken;
+}
+
+.landingPage {
+    color: seashell;
 }
 
 .landingPage video {
@@ -107,10 +128,11 @@ body {
     width: 100%;
 }
 
+
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
 }

@@ -58,22 +58,30 @@ namespace PlayasLimpiasWebApp.Controllers
 
                 //Image Proccessing - Save uploaded image into wwwroot/images folder
 
-                string wwwRootPath = _hostingEnv.WebRootPath; //get the path for image storage in wwwroot mathching/according to hosting enviroment; physical path
-
-                //Image file info
-                string imageName = $"imageEventID({@event.Id})"; //custom name for the uploaded image
-                string imageExt = Path.GetExtension(@event.ImageFile.FileName); //get image extension
-
-                //Give the image a unique name to avoid data conflicts and assing it to the Event.Image property
-                @event.Image = imageName = $"{imageName}{imageExt}";
-
-                //Final image storage path string
-                string path = Path.Combine($"{wwwRootPath}/images/", imageName);
-
-                //Save the uploaded image
-                using(var stream = new FileStream(path, FileMode.Create))
+                if(@event.ImageFile == null)
                 {
-                    await @event.ImageFile.CopyToAsync(stream);
+                    //default image
+                    @event.Image = "b1.jpeg";
+                }
+                else
+                {
+                    string wwwRootPath = _hostingEnv.WebRootPath; //get the path for image storage in wwwroot mathching/according to hosting enviroment; physical path
+
+                    //Image file info
+                    string imageName = $"imageEventID({@event.Id})"; //custom name for the uploaded image
+                    string imageExt = Path.GetExtension(@event.ImageFile.FileName); //get image extension
+
+                    //Give the image a unique name to avoid data conflicts and assing it to the Event.Image property
+                    @event.Image = imageName = $"{imageName}{imageExt}";
+
+                    //Final image storage path string
+                    string path = Path.Combine($"{wwwRootPath}/images/", imageName);
+
+                    //Save the uploaded image
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        await @event.ImageFile.CopyToAsync(stream);
+                    }
                 }
 
                 db.UpdateEvent(@event);//Saves image addition

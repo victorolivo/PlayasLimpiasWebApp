@@ -4,13 +4,13 @@
     ViewData["Title"] = "Login";
 }
 
-<h1>Login</h1>
+<div>
+    <h1 class="display-1" style="color: seashell;">Login</h1>
 
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Login">
-            <img src="~/images/NavBarLogo.png" class="img-fluid"/>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="UserName" class="control-label"></label>
@@ -34,15 +34,16 @@
                 </label>
             </div>
             <div class="form-group">
-                <input type="submit" value="Login" class="btn btn-primary" />
+                <input type="submit" value="Login" class="btn btn-outline-warning" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <p>Dont have an account?</p>
-    <a asp-action="Register">Register here for free!</a>
+<div style="color: seashell; margin-top:50px; margin-bottom:100px;">
+    <h1>Don't have an account?</h1>
+    <a asp-action="Register" class="btn btn-sm btn-outline-warning">Register here for free!</a>
+</div>
 </div>
 
 

@@ -4,15 +4,15 @@
     ViewData["Title"] = "All Events";
 }
 
-<h1>All Events</h1>
+<h1 class="display-1" style="color: seashell;">All Events</h1>
 
 @foreach(var item in Model.EventCollection)
 {
-    <div class="card" style="width: 18rem; display:inline-block; margin:20px;" >
+    <div class="card text-bg-dark mb-3" style="width: 18rem; display:inline-block; margin:20px;" >
         <img src="~/images/@item.Image" class="card-img-top" alt="...">
         <div class="card-body">
              <h5 class="card-title" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">@item.Name</h5>
-             <h6>@item.Date</h6>
+             <h6>@item.Date.ToString("D")</h6>
              <p class="eventDescription">@item.Description</p>
             <a asp-action="Details" asp-controller="Event" asp-route-id="@item.Id">Details</a>
             <a asp-action="Delete" asp-controller="Event" asp-route-id="@item.Id">Delete</a>
@@ -20,6 +20,12 @@
     </div>
 }
 
-<a asp-action="Create">Create New</a>
+
+<div style="color: seashell; margin-top:50px; margin-bottom:100px;">
+    <h1>Do you know a shoreline in need?</h1>
+    <h5>Create a new event, ask for volunteers, and let's clean this up TOGETHER!</h5>
+    <a class="btn btn-sm btn-outline-warning" asp-action="Create">Create New</a>
+</div>
+
 
 
