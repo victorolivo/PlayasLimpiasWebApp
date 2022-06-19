@@ -6,6 +6,11 @@
 
 <h1 class="display-1" style="color: seashell;">Event Details</h1>
 
+@if(ViewBag.Role == "Admin")
+{
+    <h1 style="color: seashell;">@ViewBag.Role View</h1>
+}
+
 <div style="background-color: #111; padding: 20px; border-radius: 8px;">
     <hr />
 
@@ -82,11 +87,26 @@
         </div>
 
     }
+    else if(ViewBag.Message == "Exists")
+    {
+        
+        <div class="alert alert-info" role="alert">
+            <p style="transform: rotate(0);">
+                You are a volunteer for this event, <a asp-action="MyEvents" asp-controller="Event" class="text-secondary stretched-link" >See your events here!</a>
+            </p>
+        </div>
+    }
+    else
+    {
+        <a asp-action="Volunteer" asp-controller="Event" asp-route-id="@Model.Id" class="btn btn-warning">Volunteer for this event</a>
+    }
 
-    <a asp-action="Volunteer" asp-controller="Event" asp-route-id="@Model.Id" class="btn btn-warning">Volunteer for this event</a>
+    @if(ViewBag.Role == "Admin")
+            {
+                <a asp-action="Edit" asp-controller="Event" asp-route-id="@Model.Id" class="btn btn-outline-warning" >Edit</a>
+            }
 
     
-    <a asp-action="Edit" asp-controller="Event" asp-route-id="@Model.Id" class="btn btn-outline-warning" >Edit</a>
     <br />
     
     <br />

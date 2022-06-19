@@ -35,6 +35,17 @@ namespace PlayasLimpiasWebApp.Controllers
         {
             EventCollectionViewModel ecvm = new EventCollectionViewModel();
             ecvm.EventCollection = db.GetAllEvents();
+
+            if (ecvm.EventCollection.Count == 0)
+                ViewBag.Message = "There are no events currentlly";
+
+            //Check current user role
+            if (HttpContext.User.IsInRole("Admin"))
+                ViewBag.Role = "Admin";
+            else
+                ViewBag.Role = "User";
+
+
             return View(ecvm);
         }
 
@@ -91,6 +102,7 @@ namespace PlayasLimpiasWebApp.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -98,6 +110,7 @@ namespace PlayasLimpiasWebApp.Controllers
             return View(@event);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult Edit(Event @event)
         {
@@ -109,6 +122,7 @@ namespace PlayasLimpiasWebApp.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]//Confirmation Page
         public IActionResult Delete(int id)
         {
@@ -121,6 +135,7 @@ namespace PlayasLimpiasWebApp.Controllers
             return View(@event);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult Delete(Event @event)
         {
@@ -135,18 +150,31 @@ namespace PlayasLimpiasWebApp.Controllers
             }
 
 
-            db.RemoveRelationship(@event);
+            db.RemoveEventRelationships(@event);
             db.RemoveEvent(@event.Id);
             return RedirectToAction("Index");
         }
 
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
             Event @event = db.GetEventById(id);
 
             if (@event == null)
                 return NotFound();
 
+            //Check if the user is already volunteering for this event
+            var userName = HttpContext.User.Identity.Name;
+            User currentUser = await UserManager.FindByNameAsync(userName);
+            if (db.CheckRelationship(@event, currentUser))
+            {
+                ViewBag.Message = "Exists";
+            }
+
+            //Check current user role
+            if (HttpContext.User.IsInRole("Admin"))
+                ViewBag.Role = "Admin";
+            else
+                ViewBag.Role = "User";
 
             return View(@event);
         }
@@ -160,12 +188,30 @@ namespace PlayasLimpiasWebApp.Controllers
             Event @event = db.GetEventById(id);
 
             //Check if the user is already volunteering for this event
-
-
-            db.VolunteerRelationship(@event, currentUser);
-
-            ViewBag.Message = "Success";
+            if (db.CheckRelationship(@event, currentUser))
+            {
+                ViewBag.Message = "Exists";
+            }
+            else
+            {
+                db.VolunteerRelationship(@event, currentUser);
+                ViewBag.Message = "Success";
+            }
+            
             return View("Details", @event);
+        }
+
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> Unvolunteer(int id)
+        {
+            var userName = HttpContext.User.Identity.Name;
+            User currentUser = await UserManager.FindByNameAsync(userName);
+
+            Event @event = db.GetEventById(id);
+
+            db.Unvolunteer(@event, currentUser);
+
+            return RedirectToAction("MyEvents");
         }
 
         [Authorize(Roles = "User")]
@@ -179,6 +225,8 @@ namespace PlayasLimpiasWebApp.Controllers
 
             ecvm.EventCollection = db.GetMyEvents(currentUser);
 
+            if(ecvm.EventCollection.Count == 0)
+                ViewBag.Message = "You do not have any events, check out all the ongoing events below";
             return View(ecvm);
         }
     }

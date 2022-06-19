@@ -6,15 +6,17 @@
 
 <h1 class="display-1" style="color: seashell;">My Events</h1>
 <hr />
+<h1 style="color: seashell;">@ViewBag.Message</h1>
 @foreach(var item in Model.EventCollection)
 {
-    <div class="card text-bg-dark mb-3" style="width: 18rem; display:inline-block; margin:20px;" >
+    <div class="card text-bg-dark mb-3 h-100" style="width: 18rem; display:inline-block; margin:20px;" >
         <img src="~/images/@item.Image" class="card-img-top" alt="...">
         <div class="card-body">
              <h5 class="card-title" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">@item.Name</h5>
              <h6>@item.Date.ToString("D")</h6>
              <p class="eventDescription">@item.Description</p>
             <a class="btn btn-sm btn-warning" asp-action="Details" asp-controller="Event" asp-route-id="@item.Id">Details</a>
+            <a class="btn btn-sm btn-outline-danger" asp-action="Unvolunteer" asp-controller="Event" asp-route-id="@item.Id">Unvolunteer</a>
         </div>
     </div>
 }

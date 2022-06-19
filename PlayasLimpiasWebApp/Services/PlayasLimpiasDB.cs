@@ -106,15 +106,43 @@ namespace PlayasLimpiasWebApp.Services
             _eventContext.SaveChangesAsync();
         }
 
-        //Remove volunteer ralationship entries when event is deleted
-        public void RemoveRelationship(Event @event)
+        //Remove volunteer ralationship entries when an event is deleted; Admin ONLY
+        public void RemoveEventRelationships(Event @event)
         {
             foreach (var ue in _eventContext.UserEvents)
             {
                 if(ue.EventId == @event.Id)
                     _eventContext.Remove<User_Event>(ue);
             }
-            
+
+            _eventContext.SaveChangesAsync();
+        }
+
+        //Checks if the current user has alredy volunteer for the selected event
+        //True: User is already a volunteer; Flase: User is not a volunteer
+        public bool CheckRelationship(Event @event, User user)
+        {
+            foreach(var ue in _eventContext.UserEvents)
+            {
+                if(ue.EventId == @event.Id && ue.UserId == user.Id)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public void Unvolunteer(Event @event, User user)
+        {
+            foreach (var ue in _eventContext.UserEvents)
+            {
+                if (ue.EventId == @event.Id && ue.UserId == user.Id)
+                {
+                    _eventContext.UserEvents.Remove(ue);
+                }
+            }
+            _eventContext.SaveChangesAsync();
         }
     }
 }
