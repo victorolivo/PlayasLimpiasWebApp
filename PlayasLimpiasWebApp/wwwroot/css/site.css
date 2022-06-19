@@ -25,6 +25,42 @@ a {
   color: #0366d6;
 }
 
+@keyframes fadeInOptions{
+    0% {
+        opacity:0;
+    }
+    50% {
+        opacity:0;
+    }
+    100%{
+        opacity:1;
+    }
+
+}
+
+.options {
+    position: relative;
+    margin-top: 100px;
+    animation-name: fadeInOptions;
+    animation-duration: 7s;
+    animation-timing-function: ease;
+}
+
+@keyframes fadeInLogo {
+    0% {
+        opacity: 0;
+    }
+    25%{
+        opacity:0.1;
+    }
+    50%{
+        opacity:0.5;
+    }
+    100% {
+        opacity:1;
+    }
+}
+
 .homeLogoImg {
     max-width: 800px;
     display: block;
@@ -32,10 +68,15 @@ a {
     margin-right: auto;
     width: 70%;
     position: relative;
-    top:inherit;
+    top: inherit;
     z-index: 10;
-    margin-top:80px;
+    margin-top: 80px;
+    animation-name: fadeInLogo;
+    animation-duration: 5s;
+    animation-timing-function: linear;
 }
+
+
 
 .btn-primary {
   color: #fff;
@@ -87,6 +128,19 @@ body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
     color: aliceblue;
+    animation-name: fadeInGeneral;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+}
+
+@keyframes fadeInGeneral {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
 .backImg {
