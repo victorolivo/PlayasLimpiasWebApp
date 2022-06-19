@@ -196,6 +196,8 @@ namespace PlayasLimpiasWebApp.Controllers
             {
                 db.VolunteerRelationship(@event, currentUser);
                 ViewBag.Message = "Success";
+                @event.NumVolunteers++;
+                db.UpdateEvent(@event);
             }
             
             return View("Details", @event);
@@ -210,6 +212,8 @@ namespace PlayasLimpiasWebApp.Controllers
             Event @event = db.GetEventById(id);
 
             db.Unvolunteer(@event, currentUser);
+            @event.NumVolunteers--;
+            db.UpdateEvent(@event);
 
             return RedirectToAction("MyEvents");
         }

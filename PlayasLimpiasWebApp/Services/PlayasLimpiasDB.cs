@@ -76,6 +76,7 @@ namespace PlayasLimpiasWebApp.Services
                 current.Name = @event.Name;
                 current.Date = @event.Date;
                 current.NumVolunteersReq = @event.NumVolunteersReq;
+                current.NumVolunteers = @event.NumVolunteers;
                 current.Location = @event.Location;
 
                 if (@event.Image != null)
