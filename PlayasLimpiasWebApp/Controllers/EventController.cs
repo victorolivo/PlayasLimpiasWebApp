@@ -15,10 +15,10 @@ namespace PlayasLimpiasWebApp.Controllers
     public class EventController : Controller
     {
         //Service injection - database
-        IData db;
+        readonly IData db;
 
         //Required to get the user from Identity
-        private UserManager<User> UserManager;
+        private readonly UserManager<User> UserManager;
 
         //Required to obtain the hosting enviroment
         private readonly IWebHostEnvironment _hostingEnv;
@@ -49,12 +49,14 @@ namespace PlayasLimpiasWebApp.Controllers
             return View(ecvm);
         }
 
+        [Authorize(Roles = "User")]
         [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
+        [Authorize(Roles = "User")]
         [HttpPost]
         public async Task<IActionResult> Create(Event @event)
         {
