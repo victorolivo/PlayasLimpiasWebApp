@@ -94,6 +94,21 @@
             <p style="transform: rotate(0);">
                 You are a volunteer for this event, <a asp-action="MyEvents" asp-controller="Event" class="text-secondary stretched-link" >See your events here!</a>
             </p>
+            <div class="atcb" style="display:none;">
+                {
+                    "name":"@Model.Name Event",
+                    "description":"@Model.Description",
+                    "startDate":"@Model.Date.ToString("yyyy-MM-dd")",
+                    "endDate":"@Model.Date.AddDays(1).ToString("yyyy-MM-dd")",
+                    "location":"@Model.Location",
+                    "label":"Set a Reminder",
+                    "options":[
+                        "Google",
+                        "Outlook.com",
+                        "Yahoo"
+                    ]
+                }
+            </div>
         </div>
     }
     else

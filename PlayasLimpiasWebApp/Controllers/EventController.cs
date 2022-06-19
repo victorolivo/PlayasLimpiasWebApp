@@ -95,8 +95,13 @@ namespace PlayasLimpiasWebApp.Controllers
                     }
                 }
 
-                db.UpdateEvent(@event);//Saves image addition
-                ViewBag.Message = "Event added successfully!";
+                //User that creates event is the first volunteer by default
+                @event.NumVolunteers = 1;
+                var userName = HttpContext.User.Identity.Name;
+                User currentUser = await UserManager.FindByNameAsync(userName);
+                db.VolunteerRelationship(@event, currentUser);
+
+                db.UpdateEvent(@event);
             }
 
             return RedirectToAction("Index");
