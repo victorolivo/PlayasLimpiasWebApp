@@ -10,16 +10,19 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Login">
+        <form asp-action="Login" class="row g-3 needs-validation" novalidate>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="UserName" class="control-label"></label>
-                <input asp-for="UserName" class="form-control" />
+                <input asp-for="UserName" class="form-control" required/>
                 <span asp-validation-for="UserName" class="text-danger"></span>
+                <div class="invalid-feedback">
+                    <strong>Please your enter username.</strong>
+                </div>
             </div>
             <div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" id="password"/>
+                <input asp-for="Password" class="form-control" id="password" required/>
 
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 20 20" onclick="showPassword()">
                     <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
@@ -27,6 +30,9 @@
                 </svg>
 
                 <span asp-validation-for="Password" class="text-danger"></span>
+                <div class="invalid-feedback">
+                    <strong>Please your password.</strong>
+                </div>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">

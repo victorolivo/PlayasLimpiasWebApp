@@ -15,6 +15,7 @@ namespace PlayasLimpiasWebApp.Models
         public string Name { get; set; }
         [Required(ErrorMessage = "Please enter a date for this event.")]
         public DateTime Date { get; set; }
+        [Required(ErrorMessage = "Please enter an estimated of required volunteers.")]
         [Display(Name = "Number of Volunteers")]
         public int NumVolunteersReq { get; set; }
         public int NumVolunteers { get; set; }

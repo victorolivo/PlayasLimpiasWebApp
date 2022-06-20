@@ -9,28 +9,36 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create" enctype="multipart/form-data">
+        <form asp-action="Create" enctype="multipart/form-data" class="row g-3 needs-validation" novalidate>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
+                <input asp-for="Name" class="form-control" required/>
                 <span asp-validation-for="Name" class="text-danger"></span>
+                <div class="invalid-feedback">
+                    <strong>Please enter a name for the event.</strong>
+                </div>
             </div>
             <div class="form-group">
                 <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" class="form-control" />
+                <input asp-for="Date" class="form-control" required/>
                 <span asp-validation-for="Date" class="text-danger"></span>
+                <div class="invalid-feedback">
+                    <strong>Please choose a date for the event.</strong>
+                </div>
             </div>
             <div class="form-group">
                 <label asp-for="NumVolunteersReq" class="control-label"></label>
-                <input asp-for="NumVolunteersReq" class="form-control" />
+                <input asp-for="NumVolunteersReq" class="form-control" required/>
                 <span asp-validation-for="NumVolunteersReq" class="text-danger"></span>
+                <div class="invalid-feedback">
+                    <strong>Please choose an estimated number of volunteers required for the event.</strong>
+                </div>
             </div>
             <div class="form-group">
                 <label asp-for="Location" class="control-label"></label>
-                <select asp-for="Location" class="form-select" aria-label="Default select example">
-                  <option selected>Select a location</option>
+                <select asp-for="Location" class="form-select" aria-label="Default select example" required>
                   <option value="Playa Flamenco, Culebra">Playa Flamenco, Culebra</option>
                   <option value="Playa La Monserrate, Luquillo">Playa La Monserrate, Luquillo</option>
                   <option value="Playa Boquerón, Cabo Rojo">Playa Boquerón, Cabo Rojo</option>

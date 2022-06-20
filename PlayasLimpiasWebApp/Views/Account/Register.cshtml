@@ -9,36 +9,51 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Register">
+        <form asp-action="Register" class="row g-3 needs-validation" novalidate>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
+                <input asp-for="FirstName" class="form-control" required/>
                 <span asp-validation-for="FirstName" class="text-danger"></span>
+                <div class="invalid-feedback">
+                    <strong>Please enter first name.</strong>
+                </div>
             </div>
             <div class="form-group">
                 <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
+                <input asp-for="LastName" class="form-control" required/>
                 <span asp-validation-for="LastName" class="text-danger"></span>
+                <div class="invalid-feedback">
+                    <strong>Please enter last name.</strong>
+                </div>
             </div>
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
+                <input asp-for="Email" class="form-control" required/>
                 <span asp-validation-for="Email" class="text-danger"></span>
+                <div class="invalid-feedback">
+                    <strong>Please enter an email address, not AOL.</strong>
+                </div>
             </div>
             <div class="form-group">
                 <label asp-for="PhoneNumber" class="control-label"></label>
-                <input asp-for="PhoneNumber" class="form-control" />
+                <input asp-for="PhoneNumber" class="form-control" required/>
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                <div class="invalid-feedback">
+                    <strong>Please enter your phone number.</strong>
+                </div>
             </div>
             <div class="form-group">
                 <label asp-for="UserName" class="control-label"></label>
-                <input asp-for="UserName" class="form-control" />
+                <input asp-for="UserName" class="form-control" required/>
                 <span asp-validation-for="UserName" class="text-danger"></span>
+                <div class="invalid-feedback">
+                    <strong>Please enter username, make it a cool one.</strong>
+                </div>
             </div>
             <div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" id="password"/>
+                <input asp-for="Password" class="form-control" id="password" required/>
 
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 20 20" onclick="showPassword()">
                     <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
@@ -46,9 +61,19 @@
                 </svg>
 
                 <span asp-validation-for="Password" class="text-danger"></span>
+                <div class="invalid-feedback">
+                    <strong>Passwords must have:
+                        <ul>
+                            <li>At least 5 characters.</li>
+                            <li>At least one non alphanumeric character</li>
+                            <li>At least one digit ('0'-'9')</li>
+                            <li>At least one uppercase ('A'-'Z') and one lowercase ('a'-'z')</li>
+                        </ul>
+                    </strong>
+                </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" style="margin-top:50px; margin-bottom:100px;">
                 <input type="submit" value="Register" class="btn btn-sm btn-outline-warning" />
             </div>
         </form>

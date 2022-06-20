@@ -6,6 +6,7 @@ namespace PlayasLimpiasWebApp.ViewModels
     {
 
         [Required(ErrorMessage = "Please enter a user name")]
+        [Display(Name = "Username")]
         public string UserName { get; set; }
 
         [Required(ErrorMessage = "Please enter a password")]
