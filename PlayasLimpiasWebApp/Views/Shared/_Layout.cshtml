@@ -42,11 +42,13 @@
                      <div class="col-4 d-flex justify-content-end align-items-center">
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <a class="btn btn-sm btn-outline-secondary" asp-controller="Account" asp-action="Logout">Logout</a>
+                            <strong>@User.Identity.Name</strong>
+                            <a class="btn btn-sm btn-outline-secondary" style="margin-left:10px;" asp-controller="Account" asp-action="Logout">Logout</a>
                         }
                         else
                         {
                             <a class="btn btn-sm btn-outline-secondary" asp-controller="Account" asp-action="Login">Login</a>
+                            <a class="btn btn-sm btn-outline-secondary" style="margin-left:10px;" asp-controller="Account" asp-action="Register">Register</a>
                         }
                     </div>
 

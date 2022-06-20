@@ -29,12 +29,36 @@
             </div>
             <div class="form-group">
                 <label asp-for="Location" class="control-label"></label>
-                <input asp-for="Location" class="form-control" />
+                <select asp-for="Location" class="form-select" aria-label="Default select example">
+                  <option selected>Select a location</option>
+                  <option value="Playa Flamenco, Culebra">Playa Flamenco, Culebra</option>
+                  <option value="Playa La Monserrate, Luquillo">Playa La Monserrate, Luquillo</option>
+                  <option value="Playa Boquerón, Cabo Rojo">Playa Boquerón, Cabo Rojo</option>
+                  <option value="Playa Sun Bay, Vieques">Playa Sun Bay, Vieques</option>
+                  <option value="Playa El Escambrón, San Juan">Playa El Escambrón, San Juan</option>
+                  <option value="Isla Palomino, Fajardo">Isla Palomino, Fajardo</option>
+                  <option value="Playa Isla Verde, Carolina">Playa Isla Verde, Carolina</option>
+                  <option value="Playa Crash Boat, Aguadilla">Playa Crash Boat, Aguadilla</option>
+                  <option value="Playa Tamarindo, Yauco">Playa Tamarindo, Yauco</option>
+                  <option value="Playa Seven Seas, Fajardo">Playa Seven Seas, Fajardo</option>
+                  <option value="Playa Santa, Guánica">Playa Santa, Guánica</option>
+                  <option value="Playa Sucia, Cabo Rojo">Playa Sucia, Cabo Rojo</option>
+                  <option value="Isla de Guilligan, Guánica">Isla de Guilligan, Guánica</option>
+                  <option value="Poza de las Mujeres, Manatí">Poza de las Mujeres, Manatí</option>
+                  <option value="Playa Escondida, Fajardo">Playa Escondida, Fajardo</option>
+                  <option value="Playa Pico de Piedra, Aguada">Playa Pico de Piedra, Aguada</option>
+                  <option value="Mar Chiquita, Manatí">Mar Chiquita, Manatí</option>
+                  <option value="Playa Cerro Gordo, Vega Alta">Playa Cerro Gordo, Vega Alta</option>
+                  <option value="Poza del Obispo, Arecibo">Poza del Obispo, Arecibo</option>
+                </select>
                 <span asp-validation-for="Location" class="text-danger"></span>
             </div>
+
+            
+
             <div class="form-group" style="margin-bottom:40px; margin-top:40px;">
                 <label asp-for="ImageFile" class="control-label"></label>
-                <input asp-for="ImageFile" accept="image/*"/>
+                <input asp-for="ImageFile" class="form-control" type="file" id="formFile" accept="image/*"/>
                 <span asp-validation-for="ImageFile" class="text-danger"></span>
             </div>
             <div class="form-group">
