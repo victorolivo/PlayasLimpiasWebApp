@@ -26,8 +26,6 @@ namespace PlayasLimpiasWebApp.Models
         {
             base.OnModelCreating(modelBuilder);
 
-
-
             //Seeding: sample events
             modelBuilder.Entity<Event>().HasData(
 

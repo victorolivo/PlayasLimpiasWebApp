@@ -30,6 +30,11 @@ namespace PlayasLimpiasWebApp.Controllers
             UserManager = userManager;
         }
 
+        ////For Unit Testing Purposes
+        //public EventController()
+        //{
+        //}
+
         //Index => All Events (UI)
         public async Task<IActionResult> Index(string search)
         {
