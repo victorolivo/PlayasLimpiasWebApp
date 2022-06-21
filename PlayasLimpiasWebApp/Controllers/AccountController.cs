@@ -3,19 +3,25 @@ using Microsoft.AspNetCore.Identity;
 using PlayasLimpiasWebApp.Models;
 using System.Threading.Tasks;
 using PlayasLimpiasWebApp.ViewModels;
+using PlayasLimpiasWebApp.Services;
+using System;
 
 namespace PlayasLimpiasWebApp.Controllers
 {
     public class AccountController : Controller
     {
+        //Service injection - database
+        readonly IData db;
+
         //Account managemnet properties
         private SignInManager<User> SignInManager;
         private UserManager<User> UserManager;
         private RoleManager<IdentityRole> RoleManager;
 
 
-        public AccountController(SignInManager<User> signInManager, UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
+        public AccountController(IData data, SignInManager<User> signInManager, UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
         {
+            db = data;
             SignInManager = signInManager;
             UserManager = userManager;
             RoleManager = roleManager;
@@ -41,10 +47,14 @@ namespace PlayasLimpiasWebApp.Controllers
                 var result = await SignInManager.PasswordSignInAsync(loginViewModel.UserName, loginViewModel.Password, loginViewModel.RememberMe, false);
                 if (result.Succeeded)
                 {
+                    db.AddActivity(new Activity { Type = "User Login", ActionBy = loginViewModel.UserName, AffectedEvent = "NA", ActionTimeStamp = DateTime.Now });
                     return RedirectToAction("Index", "Home");
                 }
             }
             ModelState.AddModelError("", "Failed login");
+
+            db.AddActivity(new Activity { Type = "Failed User Login", ActionBy = loginViewModel.UserName, AffectedEvent = "NA", ActionTimeStamp = DateTime.Now });
+
             return View();
         }
 
@@ -88,6 +98,8 @@ namespace PlayasLimpiasWebApp.Controllers
                         await UserManager.AddToRoleAsync(addedUser, "USER");
                     }
 
+                    db.AddActivity(new Activity { Type = "New Registered User", ActionBy = registerViewModel.UserName, AffectedEvent = "NA", ActionTimeStamp = DateTime.Now });
+
                     return RedirectToAction("Login", "Account");
                 }
 
@@ -98,13 +110,18 @@ namespace PlayasLimpiasWebApp.Controllers
 
             }
             ModelState.AddModelError("", "Registration Failed");
+
+
             return View();
         }
 
         [HttpGet]
         public async Task<IActionResult> Logout()
         {
+            db.AddActivity(new Activity { Type = "User Logout", ActionBy = HttpContext.User.Identity.Name, AffectedEvent = "NA", ActionTimeStamp = DateTime.Now });
+
             await SignInManager.SignOutAsync();
+
             return RedirectToAction("Login", "Account");
         }
 

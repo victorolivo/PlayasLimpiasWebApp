@@ -124,6 +124,8 @@ namespace PlayasLimpiasWebApp.Controllers
                 db.VolunteerRelationship(@event, currentUser);
 
                 db.UpdateEvent(@event);
+
+                db.AddActivity(new Activity { Type = "Event Created", ActionBy = HttpContext.User.Identity.Name, AffectedEvent = @event.Name, ActionTimeStamp = DateTime.Now});
             }
 
             return RedirectToAction("Index");
@@ -145,6 +147,8 @@ namespace PlayasLimpiasWebApp.Controllers
             {
                 db.UpdateEvent(@event);
                 ViewBag.Message = "Event has been updated successfully!";
+
+                db.AddActivity(new Activity { Type = "Event Edited", ActionBy = HttpContext.User.Identity.Name, AffectedEvent = @event.Name, ActionTimeStamp = DateTime.Now });
             }
             return RedirectToAction("Index");
         }
@@ -157,7 +161,6 @@ namespace PlayasLimpiasWebApp.Controllers
 
             if (@event == null)
                 return NotFound();
-
 
             return View(@event);
         }
@@ -179,6 +182,9 @@ namespace PlayasLimpiasWebApp.Controllers
 
             db.RemoveEventRelationships(@event);
             db.RemoveEvent(@event.Id);
+
+            db.AddActivity(new Activity { Type = "Event Deleted", ActionBy = HttpContext.User.Identity.Name, AffectedEvent = @event.Name, ActionTimeStamp = DateTime.Now });
+
             return RedirectToAction("Index");
         }
 
@@ -225,6 +231,8 @@ namespace PlayasLimpiasWebApp.Controllers
                 ViewBag.Message = "Success";
                 @event.NumVolunteers++;
                 db.UpdateEvent(@event);
+
+                db.AddActivity(new Activity { Type = "User Volunteered", ActionBy = HttpContext.User.Identity.Name, AffectedEvent = @event.Name, ActionTimeStamp = DateTime.Now });
             }
             
             return View("Details", @event);
@@ -241,6 +249,8 @@ namespace PlayasLimpiasWebApp.Controllers
             db.Unvolunteer(@event, currentUser);
             @event.NumVolunteers--;
             db.UpdateEvent(@event);
+
+            db.AddActivity(new Activity { Type = "User Unvolunteered", ActionBy = HttpContext.User.Identity.Name, AffectedEvent = @event.Name, ActionTimeStamp = DateTime.Now });
 
             return RedirectToAction("MyEvents");
         }

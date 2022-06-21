@@ -26,5 +26,11 @@ namespace PlayasLimpiasWebApp.Services
         void RemoveEventRelationships(Event @event);
         bool CheckRelationship(Event @event, User user);
 
+        void AddActivity(Activity activity);
+
+        List<Activity> GetAllActivity();
+
+        List<User> GetAllUsers();
+
     }
 }

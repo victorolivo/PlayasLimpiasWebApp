@@ -1,0 +1,104 @@
+﻿@model PlayasLimpiasWebApp.ViewModels.VolunteeringReportViewModel
+
+@{
+    ViewData["Title"] = "VolunteeringReport";
+}
+
+<h1>VolunteeringReport</h1>
+
+<div>
+    <h4>VolunteeringReportViewModel</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.timeStamp)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.timeStamp)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NumActiveUsers)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NumActiveUsers)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NumActiveEvents)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NumActiveEvents)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NumActiveVolunteers)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NumActiveVolunteers)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.VolunteeringPercentage)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.VolunteeringPercentage)
+        </dd>
+    </dl>
+</div>
+<div>
+
+    <table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Location
+            </th>
+            <th>
+                Volunteers Required
+            </th>
+            <th>
+                Volunteer Count
+            </th>
+            <th>
+                Volunteer Qouta (%)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var e in @Model.LessThan50PerOfVolunteers) {
+        <tr>
+            <td>
+                @e.Id
+            </td>
+            <td>
+                @e.Name
+            </td>
+            <td>
+                @e.Location
+            </td>
+            <td>
+                @e.NumVolunteersReq
+            </td>
+            <td>
+                @e.NumVolunteers
+            </td>
+            <td>
+                @((int)(((double)e.NumVolunteers/e.NumVolunteersReq)*100))%
+            </td>
+            
+        </tr>
+}
+    </tbody>
+</table>
+
+</div>

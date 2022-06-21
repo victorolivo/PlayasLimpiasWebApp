@@ -18,7 +18,8 @@ namespace PlayasLimpiasWebApp.Models
         //Tables (Users table is automatically generated when using Identity)
         public DbSet<Event> Events { get; set; }
         public DbSet<User_Event> UserEvents { get; set; }
-        
+        public DbSet<Activity> Activity { get; set; }
+
         //Data seeding
         //Only runs once
         protected override void OnModelCreating(ModelBuilder modelBuilder)
