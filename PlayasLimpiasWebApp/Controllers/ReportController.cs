@@ -42,7 +42,7 @@ namespace PlayasLimpiasWebApp.Controllers
 
             VolunteeringReportViewModel report = new VolunteeringReportViewModel
             {
-                timeStamp = DateTime.Now.ToString("f"),
+                TimeStamp = DateTime.Now.ToString("f"),
                 NumActiveUsers = db.GetAllUsers().Count,
                 NumActiveEvents = db.GetAllEvents().Count,
                 NumActiveVolunteers = activeVolunteers,

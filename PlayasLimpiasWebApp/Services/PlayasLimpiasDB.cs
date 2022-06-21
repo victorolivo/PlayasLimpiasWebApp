@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using PlayasLimpiasWebApp.Models;
+﻿using PlayasLimpiasWebApp.Models;
 using System.Collections.Generic;
 
 namespace PlayasLimpiasWebApp.Services
@@ -7,9 +6,7 @@ namespace PlayasLimpiasWebApp.Services
     public class PlayasLimpiasDB : IData
     {
         public List<Event> Events { get; set; }
-        EventContext IData._eventContext { get; set; }
-
-        public EventContext _eventContext;
+        public EventContext _eventContext { get; set; }
 
         //Constructor: EntityFramework injection
         public PlayasLimpiasDB(EventContext eventContext)
@@ -25,7 +22,6 @@ namespace PlayasLimpiasWebApp.Services
         {
             _eventContext.Events.Add(@event);
             _eventContext.SaveChangesAsync();
-
         }
 
         //Gets the all the events
@@ -146,22 +142,6 @@ namespace PlayasLimpiasWebApp.Services
                 }
             }
             _eventContext.SaveChangesAsync();
-        }
-
-        public void AddActivity(Activity activity)
-        {
-            _eventContext.Activity.Add(activity);
-            _eventContext.SaveChangesAsync();
-        }
-
-        public List<Activity> GetAllActivity()
-        {
-            return new List<Activity>(_eventContext.Activity);
-        }
-
-        public List<User> GetAllUsers()
-        {
-            return new List<User>(_eventContext.Users);
         }
     }
 }

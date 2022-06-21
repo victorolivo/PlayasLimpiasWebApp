@@ -7,7 +7,7 @@ namespace PlayasLimpiasWebApp.ViewModels
     public class VolunteeringReportViewModel
     {
         public string Title { get; set; } = "Event Volunteering Activity Report";
-        public string timeStamp { get; set; }
+        public string TimeStamp { get; set; }
 
         public int NumActiveUsers { get; set; }
         public int NumActiveEvents { get; set; }
