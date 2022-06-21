@@ -31,23 +31,35 @@ namespace PlayasLimpiasWebApp.Controllers
         }
 
         //Index => All Events (UI)
-        public IActionResult Index()
+        public async Task<IActionResult> Index(string search)
         {
-            EventCollectionViewModel ecvm = new EventCollectionViewModel();
-            ecvm.EventCollection = db.GetAllEvents();
-
-            if (ecvm.EventCollection.Count == 0)
-                ViewBag.Message = "There are no events currentlly";
-
             //Check current user role
             if (HttpContext.User.IsInRole("Admin"))
                 ViewBag.Role = "Admin";
             else
                 ViewBag.Role = "User";
 
+            EventCollectionViewModel ecvm = new EventCollectionViewModel();
+            ecvm.EventCollection = db.GetAllEvents();
+
+            if (String.IsNullOrWhiteSpace(search))
+            {
+                if (ecvm.EventCollection.Count == 0)
+                    ViewBag.Message = "There are no events currentlly";
+
+                return View(ecvm);
+            }
+
+            //Filter events by search criteria
+            ecvm.EventCollection = await SearchResults(ecvm, search);
+
+            if (ecvm.EventCollection.Count == 0)
+                ViewBag.Message = "There are no events with that name currently";
 
             return View(ecvm);
         }
+
+
 
         [Authorize(Roles = "User")]
         [HttpGet]
@@ -62,7 +74,7 @@ namespace PlayasLimpiasWebApp.Controllers
         {
             
 
-            if (ModelState.IsValid) //confirms the form data is valid
+            if (ModelState.IsValid) //confirms the form data is valid (server-side)
             {
                 //Save event to database
                 //Event needs to be sabe into the database first so that a id (PK) is generated
@@ -78,23 +90,31 @@ namespace PlayasLimpiasWebApp.Controllers
                 }
                 else
                 {
-                    string wwwRootPath = _hostingEnv.WebRootPath; //get the path for image storage in wwwroot mathching/according to hosting enviroment; physical path
-
-                    //Image file info
-                    string imageName = $"imageEventID({@event.Id})"; //custom name for the uploaded image
-                    string imageExt = Path.GetExtension(@event.ImageFile.FileName); //get image extension
-
-                    //Give the image a unique name to avoid data conflicts and assing it to the Event.Image property
-                    @event.Image = imageName = $"{imageName}{imageExt}";
-
-                    //Final image storage path string
-                    string path = Path.Combine($"{wwwRootPath}/images/", imageName);
-
-                    //Save the uploaded image
-                    using (var stream = new FileStream(path, FileMode.Create))
+                    try
                     {
-                        await @event.ImageFile.CopyToAsync(stream);
+                        string wwwRootPath = _hostingEnv.WebRootPath; //get the path for image storage in wwwroot mathching/according to hosting enviroment; physical path
+
+                        //Image file info
+                        string imageName = $"imageEventID({@event.Id})"; //custom name for the uploaded image
+                        string imageExt = Path.GetExtension(@event.ImageFile.FileName); //get image extension
+
+                        //Give the image a unique name to avoid data conflicts and assing it to the Event.Image property
+                        @event.Image = imageName = $"{imageName}{imageExt}";
+
+                        //Final image storage path string
+                        string path = Path.Combine($"{wwwRootPath}/images/", imageName);
+
+                        //Save the uploaded image
+                        using (var stream = new FileStream(path, FileMode.Create))
+                        {
+                            await @event.ImageFile.CopyToAsync(stream);
+                        }
                     }
+                    catch(Exception ex)
+                    {
+                        ViewBag.Message = $"There was an error uploading your image ({ex.Message})";
+                    }
+                    
                 }
 
                 //User that creates event is the first volunteer by default
@@ -226,7 +246,7 @@ namespace PlayasLimpiasWebApp.Controllers
         }
 
         [Authorize(Roles = "User")]
-        public async Task<IActionResult> MyEvents()
+        public async Task<IActionResult> MyEvents(string search)
         {
             EventCollectionViewModel ecvm = new EventCollectionViewModel();
 
@@ -236,9 +256,37 @@ namespace PlayasLimpiasWebApp.Controllers
 
             ecvm.EventCollection = db.GetMyEvents(currentUser);
 
-            if(ecvm.EventCollection.Count == 0)
-                ViewBag.Message = "You do not have any events, check out all the ongoing events below";
+            if (String.IsNullOrWhiteSpace(search))
+            {
+                if (ecvm.EventCollection.Count == 0)
+                    ViewBag.Message = "You do not have any events, check out all the ongoing events below";
+                return View(ecvm);
+            }
+
+            //Filter events by search criteria
+            ecvm.EventCollection = await SearchResults(ecvm, search);
+
+            if (ecvm.EventCollection.Count == 0)
+                ViewBag.Message = "There are no events with that name in your list";
+
             return View(ecvm);
+        }
+
+        //Filter events by search criteria
+        private Task<List<Event>> SearchResults(EventCollectionViewModel ecvm, string search)
+        {
+            search = search.ToLower();
+            List<Event> searchResults = new List<Event>();
+
+            foreach (var item in ecvm.EventCollection)
+            {
+                if ((item.Name).ToLower().Contains(search))
+                {
+                    searchResults.Add(item);
+                }
+            }
+
+            return Task.FromResult(searchResults);
         }
     }
 }

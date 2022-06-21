@@ -69,6 +69,7 @@
                 <input asp-for="ImageFile" class="form-control" type="file" id="formFile" accept="image/*"/>
                 <span asp-validation-for="ImageFile" class="text-danger"></span>
             </div>
+            <div>@ViewBag.Message</div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
                 <input asp-for="Description" class="form-control" />

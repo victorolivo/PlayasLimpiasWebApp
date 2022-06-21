@@ -6,7 +6,14 @@
 
 <h1 class="display-1" style="color: seashell;">My Events</h1>
 <hr />
-<h1 style="color: seashell;">@ViewBag.Message</h1>
+
+<form class="d-flex justify-content-end" style="max-width:50%" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search event by name" aria-label="Search" name="search">
+        <button class="btn btn-outline-warning" type="submit">Search</button>
+</form>
+
+<h1 style="color: seashell; margin-top:50px;">@ViewBag.Message</h1>
+
 @foreach(var item in Model.EventCollection)
 {
     <div class="card text-bg-dark mb-3 h-100" style="width: 18rem; display:inline-block; margin:20px;" >

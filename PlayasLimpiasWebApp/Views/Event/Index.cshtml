@@ -6,12 +6,18 @@
 
 <h1 class="display-1" style="color: seashell;">All Events</h1>
 <hr />
-<h1 style="color: seashell;">@ViewBag.Message</h1>
 
 @if(ViewBag.Role == "Admin")
 {
     <h1 style="color: seashell;">@ViewBag.Role View</h1>
 }
+
+<form class="d-flex justify-content-end" style="max-width:50%" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search event by name" aria-label="Search" name="search">
+        <button class="btn btn-outline-warning" type="submit">Search</button>
+</form>
+
+<h1 style="color: seashell; margin-top:50px;">@ViewBag.Message</h1>
 
 @foreach(var item in Model.EventCollection)
 {
@@ -31,7 +37,7 @@
 }
 
 
-<div style="color: seashell; margin-top:50px; margin-bottom:100px;">
+<div style="color: seashell; margin-top:100px; margin-bottom:100px;">
     <h1>Do you know a shoreline in need?</h1>
     <h5>Create a new event, ask for volunteers, and let's clean this up TOGETHER!</h5>
     <a class="btn btn-sm btn-outline-warning" asp-action="Create">Create New</a>
