@@ -47,6 +47,18 @@
                         {
                             <strong>@User.Identity.Name</strong>
                             <a class="btn btn-sm btn-outline-secondary" style="margin-left:10px;" asp-controller="Account" asp-action="Logout">Logout</a>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <ul class="navbar-nav flex-grow-1" style="margin-left:10px;">
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Reports</a>
+                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                            <li><a class="dropdown-item" asp-controller="Report" asp-action="ActivityReport">Activity Report</a></li>
+                                            <li><a class="dropdown-item" asp-controller="Report" asp-action="VolunteeringReport">Volunteering Report</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            }
                         }
                         else
                         {

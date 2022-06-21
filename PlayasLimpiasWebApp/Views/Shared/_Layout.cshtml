@@ -42,11 +42,11 @@
                      <div class="col-4 d-flex justify-content-end align-items-center">
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <strong>@User.Identity.Name</strong>
+                            <strong style="color:seashell;">@User.Identity.Name</strong>
                             <a class="btn btn-sm btn-outline-secondary" style="margin-left:10px;" asp-controller="Account" asp-action="Logout">Logout</a>
                             @if (User.IsInRole("Admin"))
                             {
-                                <ul>
+                                <ul class="navbar-nav flex-grow-1" style="margin-left:10px;">
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Reports</a>
                                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">

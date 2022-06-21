@@ -4,50 +4,51 @@
     ViewData["Title"] = "Activity Report";
 }
 
-<h1>Activity Report</h1>
+<h1 class="display-1">Activity Report</h1>
 
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Id
-            </th>
-            <th>
-                Type of Action
-            </th>
-            <th>
-                Action By
-            </th>
-            <th>
-                Affected Event
-            </th>
-            <th>
-                Action TimeStamp
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.ActivityCollection) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ActionBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AffectedEvent)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ActionTimeStamp)
-            </td>
+<div style="background-color: seashell; padding: 20px; border-radius: 8px; color:seashell; margin-bottom:100px;">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Id
+                </th>
+                <th>
+                    Type of Action
+                </th>
+                <th>
+                    Action By
+                </th>
+                <th>
+                    Affected Event
+                </th>
+                <th>
+                    Action TimeStamp
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model.ActivityCollection) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ActionBy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AffectedEvent)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ActionTimeStamp)
+                </td>
             
-        </tr>
-}
-    </tbody>
-</table>
+            </tr>
+    }
+        </tbody>
+    </table>
+</div>

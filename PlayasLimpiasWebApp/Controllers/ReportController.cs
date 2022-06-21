@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PlayasLimpiasWebApp.Models;
 using PlayasLimpiasWebApp.Services;
 using PlayasLimpiasWebApp.ViewModels;
@@ -16,6 +17,7 @@ namespace PlayasLimpiasWebApp.Controllers
             db = data;
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult ActivityReport()
         {
             ActivityCollectionViewModel report = new ActivityCollectionViewModel();
@@ -24,6 +26,7 @@ namespace PlayasLimpiasWebApp.Controllers
             return View(report);
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult VolunteeringReport()
         {
             int activeVolunteers = 0;
