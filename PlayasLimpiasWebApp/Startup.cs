@@ -57,9 +57,10 @@ namespace PlayasLimpiasWebApp
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
+            else if(env.IsProduction())
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/ErrorPage.html");
+                app.UseHsts();
             }
             app.UseStaticFiles();
 

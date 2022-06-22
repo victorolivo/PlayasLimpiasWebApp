@@ -15,14 +15,23 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "PlayasLimpiasWebApp": {
+    "Production": {
       "commandName": "Project",
-      "dotnetRunMessages": "true",
       "launchBrowser": true,
       "applicationUrl": "http://localhost:5000",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Production"
+      }
+    },
+
+      "PlayasLimpiasWebApp": {
+        "commandName": "Project",
+        "dotnetRunMessages": "true",
+        "launchBrowser": true,
+        "applicationUrl": "http://localhost:5000",
+        "environmentVariables": {
+          "ASPNETCORE_ENVIRONMENT": "Development"
+        }
       }
     }
   }
-}

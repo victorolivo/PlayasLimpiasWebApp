@@ -194,17 +194,25 @@ namespace PlayasLimpiasWebApp.Controllers
 
             //Check if the user is already volunteering for this event
             var userName = HttpContext.User.Identity.Name;
-            User currentUser = await UserManager.FindByNameAsync(userName);
-            if (db.CheckRelationship(@event, currentUser))
-            {
-                ViewBag.Message = "Exists";
-            }
 
-            //Check current user role
-            if (HttpContext.User.IsInRole("Admin"))
-                ViewBag.Role = "Admin";
+            if(userName != null)
+            {
+                User currentUser = await UserManager.FindByNameAsync(userName);
+                if (db.CheckRelationship(@event, currentUser))
+                {
+                    ViewBag.Message = "Exists";
+                }
+
+                //Check current user role
+                if (HttpContext.User.IsInRole("Admin"))
+                    ViewBag.Role = "Admin";
+                else
+                    ViewBag.Role = "User";
+            }
             else
-                ViewBag.Role = "User";
+            {
+                ViewBag.Message = "User not logged in";
+            }
 
             return View(@event);
         }

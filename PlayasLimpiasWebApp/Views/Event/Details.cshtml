@@ -111,6 +111,10 @@
             </div>
         </div>
     }
+    else if(ViewBag.Message == "User not logged in")
+    {
+        <a asp-action="Login" asp-controller="Account" class="btn btn-warning">Login to volunteer</a>
+    }
     else
     {
         <a asp-action="Volunteer" asp-controller="Event" asp-route-id="@Model.Id" class="btn btn-warning">Volunteer for this event</a>
@@ -125,5 +129,6 @@
     <br />
     
     <br />
-    <a asp-action="Index" class="text-warning">Back to List</a>
+    <a asp-action="Index" style="margin:20px;" class="text-warning">Back to All Events</a>
+    <a asp-action="MyEvents" class="text-warning">Back to My Events</a>
 </div>
