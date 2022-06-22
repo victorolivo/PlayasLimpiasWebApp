@@ -36,13 +36,20 @@ namespace PlayasLimpiasWebApp.Controllers
         //}
 
         //Index => All Events (UI)
-        public async Task<IActionResult> Index(string search)
+        public IActionResult Index(string search)
         {
-            //Check current user role
-            if (HttpContext.User.IsInRole("Admin"))
-                ViewBag.Role = "Admin";
-            else
-                ViewBag.Role = "User";
+            try
+            {
+                //Check current user role
+                if (HttpContext.User.IsInRole("Admin"))
+                    ViewBag.Role = "Admin";
+                else
+                    ViewBag.Role = "User";
+            }
+            catch(Exception UserNotLoggedIn)
+            {
+                //No exeption thrown; Users are allowed to view events without loggin in
+            }
 
             EventCollectionViewModel ecvm = new EventCollectionViewModel();
             ecvm.EventCollection = db.GetAllEvents();
@@ -52,16 +59,16 @@ namespace PlayasLimpiasWebApp.Controllers
                 if (ecvm.EventCollection.Count == 0)
                     ViewBag.Message = "There are no events currentlly";
 
-                return View(ecvm);
+                return View("Index", ecvm);
             }
 
             //Filter events by search criteria
-            ecvm.EventCollection = await SearchResults(ecvm, search);
+            ecvm.EventCollection = SearchResults(ecvm, search);
 
             if (ecvm.EventCollection.Count == 0)
                 ViewBag.Message = "There are no events with that name currently";
 
-            return View(ecvm);
+            return View("Index", ecvm);
         }
 
 
@@ -70,7 +77,7 @@ namespace PlayasLimpiasWebApp.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            return View("Create");
         }
 
         [Authorize(Roles = "User")]
@@ -279,7 +286,7 @@ namespace PlayasLimpiasWebApp.Controllers
             }
 
             //Filter events by search criteria
-            ecvm.EventCollection = await SearchResults(ecvm, search);
+            ecvm.EventCollection = SearchResults(ecvm, search);
 
             if (ecvm.EventCollection.Count == 0)
                 ViewBag.Message = "There are no events with that name in your list";
@@ -288,7 +295,8 @@ namespace PlayasLimpiasWebApp.Controllers
         }
 
         //Filter events by search criteria
-        private Task<List<Event>> SearchResults(EventCollectionViewModel ecvm, string search)
+        //Private method, internally use, encapsulation; make public only for testing purposes 
+        public List<Event> SearchResults(EventCollectionViewModel ecvm, string search)
         {
             search = search.ToLower();
             List<Event> searchResults = new List<Event>();
@@ -301,7 +309,7 @@ namespace PlayasLimpiasWebApp.Controllers
                 }
             }
 
-            return Task.FromResult(searchResults);
+            return searchResults;
         }
     }
 }

@@ -62,7 +62,7 @@ namespace PlayasLimpiasWebApp.Controllers
         [HttpGet]
         public IActionResult Register()
         {
-            return View();
+            return View("Register");
         }
 
         //User attempts registration
