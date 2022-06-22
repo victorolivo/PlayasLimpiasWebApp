@@ -49,7 +49,7 @@ namespace PlayasLimpiasWebApp
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, EventContext eventContext)
         {
-            eventContext.Database.EnsureDeleted();
+            //eventContext.Database.EnsureDeleted();
             //Ensure the database is created 
             eventContext.Database.EnsureCreated();
 

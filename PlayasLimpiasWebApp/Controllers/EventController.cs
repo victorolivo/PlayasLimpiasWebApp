@@ -46,7 +46,7 @@ namespace PlayasLimpiasWebApp.Controllers
                 else
                     ViewBag.Role = "User";
             }
-            catch(Exception UserNotLoggedIn)
+            catch
             {
                 //No exeption thrown; Users are allowed to view events without loggin in
             }
@@ -93,41 +93,7 @@ namespace PlayasLimpiasWebApp.Controllers
                 db.AddEvent(@event);
 
 
-                //Image Proccessing - Save uploaded image into wwwroot/images folder
-
-                if(@event.ImageFile == null)
-                {
-                    //default image
-                    @event.Image = "b1.jpeg";
-                }
-                else
-                {
-                    try
-                    {
-                        string wwwRootPath = _hostingEnv.WebRootPath; //get the path for image storage in wwwroot mathching/according to hosting enviroment; physical path
-
-                        //Image file info
-                        string imageName = $"imageEventID({@event.Id})"; //custom name for the uploaded image
-                        string imageExt = Path.GetExtension(@event.ImageFile.FileName); //get image extension
-
-                        //Give the image a unique name to avoid data conflicts and assing it to the Event.Image property
-                        @event.Image = imageName = $"{imageName}{imageExt}";
-
-                        //Final image storage path string
-                        string path = Path.Combine($"{wwwRootPath}/images/", imageName);
-
-                        //Save the uploaded image
-                        using (var stream = new FileStream(path, FileMode.Create))
-                        {
-                            await @event.ImageFile.CopyToAsync(stream);
-                        }
-                    }
-                    catch(Exception ex)
-                    {
-                        ViewBag.Message = $"There was an error uploading your image ({ex.Message})";
-                    }
-                    
-                }
+                ViewBag.Message = await ImageProccessing(@event);
 
                 //User that creates event is the first volunteer by default
                 @event.NumVolunteers = 1;
@@ -153,10 +119,29 @@ namespace PlayasLimpiasWebApp.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public IActionResult Edit(Event @event)
+        public async Task<IActionResult> Edit(Event @event)
         {
+            Event oldEvent = db.GetEventById(@event.Id);
+
+            //Additional Volunteers added by Administrator
+            @event.NumVolunteers += oldEvent.NumVolunteers;
+
             if (ModelState.IsValid) //confirms the form data is valid
             {
+                //If an new image has been uploaded, update event image
+                if (@event.ImageFile != null && oldEvent.Image != @event.ImageFile.FileName)
+                {
+                    //Delete event old image from wwwroot
+                    var path = Path.Combine(_hostingEnv.WebRootPath, "images", oldEvent.Image);
+                    if (System.IO.File.Exists(path))
+                    {
+                        System.IO.File.Delete(path);
+                    }
+
+                    //Save new image
+                    await ImageProccessing(@event);
+                }
+
                 db.UpdateEvent(@event);
                 ViewBag.Message = "Event has been updated successfully!";
 
@@ -310,6 +295,52 @@ namespace PlayasLimpiasWebApp.Controllers
             }
 
             return searchResults;
+        }
+
+        //Image Proccessing - Save uploaded image into wwwroot/images folder
+        private async Task<string> ImageProccessing(Event @event)
+        {
+
+            string confirmation;
+
+            if (@event.ImageFile == null)
+            {
+                //default image
+                @event.Image = "b1.jpeg";
+                confirmation = "Default image provided";
+            }
+            else
+            {
+                try
+                {
+                    string wwwRootPath = _hostingEnv.WebRootPath; //get the path for image storage in wwwroot mathching/according to hosting enviroment; physical path
+
+                    //Image file info
+                    string imageName = $"imageEventID({@event.Id})"; //custom name for the uploaded image
+                    string imageExt = Path.GetExtension(@event.ImageFile.FileName); //get image extension
+
+                    //Give the image a unique name to avoid data conflicts and assing it to the Event.Image property
+                    @event.Image = imageName = $"{imageName}{imageExt}";
+
+                    //Final image storage path string
+                    string path = Path.Combine($"{wwwRootPath}/images/", imageName);
+
+                    //Save the uploaded image
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        await @event.ImageFile.CopyToAsync(stream);
+                    }
+
+                    confirmation = "Success";
+                }
+                catch (Exception ex)
+                {
+                    confirmation = $"There was an error uploading your image ({ex.Message})";
+                }
+
+            }
+
+            return confirmation;
         }
     }
 }

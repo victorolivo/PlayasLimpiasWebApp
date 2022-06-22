@@ -120,9 +120,10 @@ button.accept-policy {
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
+
 
 body {
     /* Margin bottom by footer height */
@@ -144,7 +145,7 @@ body {
 }
 
 .backImg {
-    background: url("../images/backgroundImg.jpg") no-repeat center center fixed;
+    background-image: url("../images/backgroundImg.jpg");
     background-size: cover;
     background-blend-mode: darken;
 }

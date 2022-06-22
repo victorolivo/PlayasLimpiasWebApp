@@ -81,10 +81,6 @@ namespace PlayasLimpiasWebApp.Services
                 {
                     current.Image = @event.Image;
                 }
-                else
-                {
-                    current.Image = "b1.jpeg";
-                }
 
                 current.Description = @event.Description;
 
