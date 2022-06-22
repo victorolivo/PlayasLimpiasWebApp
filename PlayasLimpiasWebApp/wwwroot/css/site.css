@@ -144,7 +144,7 @@ body {
 }
 
 .backImg {
-    background-image: url("../images/backgroundImg.jpg");
+    background: url("../images/backgroundImg.jpg") no-repeat center center fixed;
     background-size: cover;
     background-blend-mode: darken;
 }
