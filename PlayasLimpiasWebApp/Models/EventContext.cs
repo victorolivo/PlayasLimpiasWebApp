@@ -36,9 +36,9 @@ namespace PlayasLimpiasWebApp.Models
                     Date = System.DateTime.Now,
                     NumVolunteersReq = 60,
                     NumVolunteers = 0,
-                    Location = "Playa Escambrón, San Juan",
+                    Location = "Playa El Escambrón, San Juan",
                     Image = "b1.jpeg",
-                    Description = "Ayudame a salvar esta playa"
+                    Description = "Need some assistance cleaning all this trash"
         },
 
                 new Event
@@ -48,9 +48,57 @@ namespace PlayasLimpiasWebApp.Models
                     Date = System.DateTime.Now.AddDays(14),
                     NumVolunteersReq = 20,
                     NumVolunteers  = 0,
-                    Location = "Playa Escondida, Luquillo",
-                    Image = "b1.jpeg",
-                    Description = "Ayudame a salvar esta playa"
+                    Location = "Playa Crash Boat, Aguadilla",
+                    Image = "aboutImg (6).jpg",
+                    Description = "Help me rescue this coastline"
+                },
+
+                new Event
+                {
+                    Id = 3,
+                    Name = "Playa Santa Event",
+                    Date = System.DateTime.Now.AddDays(4),
+                    NumVolunteersReq = 40,
+                    NumVolunteers = 0,
+                    Location = "Playa Santa, Guánica",
+                    Image = "aboutImg (4).jpg",
+                    Description = "Marine endangered species in the area"
+                },
+
+                new Event
+                {
+                    Id = 4,
+                    Name = "Come Join Us!",
+                    Date = System.DateTime.Now.AddDays(34),
+                    NumVolunteersReq = 30,
+                    NumVolunteers = 0,
+                    Location = "Playa Isla Verde, Carolina",
+                    Image = "aboutImg (5).jpg",
+                    Description = "Food and drinks provided for volunteers!"
+                },
+
+                new Event
+                {
+                    Id = 5,
+                    Name = "Green Sea Turtle Eggs In danger",
+                    Date = System.DateTime.Now.AddDays(1),
+                    NumVolunteersReq = 40,
+                    NumVolunteers = 0,
+                    Location = "Poza de las Mujeres, Manatí",
+                    Image = "aboutImg (3).jpg",
+                    Description = "Lets clean this up and protect those eggs. Materials for a custome fence welcomed!"
+                },
+
+                new Event
+                {
+                    Id = 6,
+                    Name = "Awful view, let's clean this up",
+                    Date = System.DateTime.Now.AddDays(1),
+                    NumVolunteersReq = 10,
+                    NumVolunteers = 0,
+                    Location = "Playa Flamenco, Culebra",
+                    Image = "aboutImg (7).jpg",
+                    Description = "Music, BBQ, Volleyball tournament after: free entry"
                 }
 
                 );
