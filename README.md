@@ -13,10 +13,11 @@ Sadly, it has become an increasing problem that many visitors leave disposable i
 * ASP.NET Core MVC
 * C#
 * SQLite
+* Entity Framework
 * HTML, JavaScript and CSS
 * Azure App Services
 * SSL
-* Multiple frameworks (Identity for Authentication, NUnit for unit testing, and more)
+* Other frameworks (Identity for Authentication, NUnit for unit testing, and more)
 
 # Design
 
