@@ -30,7 +30,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="NumVolunteersReq" class="control-label"></label>
-                <input asp-for="NumVolunteersReq" class="form-control" required min="0"/>
+                <input asp-for="NumVolunteersReq" class="form-control" required min="0" />
                 <span asp-validation-for="NumVolunteersReq" class="text-danger"></span>
                 <div class="invalid-feedback">
                     <strong>Please choose an estimated number of volunteers required for the event.</strong>
@@ -85,4 +85,5 @@
 <div style="margin-top:50px; margin-bottom:100px;">
     <a asp-action="Index" class="text-warning">Cancel</a>
 </div>
+
 
