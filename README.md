@@ -17,6 +17,7 @@ Sadly, it has become an increasing problem that many visitors leave disposable i
 * HTML, JavaScript and CSS
 * Azure App Services
 * SSL
+* CI/CD
 * Other frameworks (Identity for Authentication, NUnit for unit testing, and more)
 
 # Design
