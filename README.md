@@ -97,4 +97,4 @@ Administrator can Delete and Edit Events
 
 Hosted on Azure Cloud App Services
 
-(https://www.playaslimpias.life/)
+https://www.playaslimpias.life/
