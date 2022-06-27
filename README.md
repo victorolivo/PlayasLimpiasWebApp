@@ -97,4 +97,4 @@ Administrator can Delete and Edit Events
 
 Hosted on Azure Cloud App Services
 
-Link : coming soon (Capstone evaluation in-progress) (23JUN2022)
+(https://www.playaslimpias.life/)
