@@ -93,7 +93,7 @@ Administrator can Delete and Edit Events
 ![Picture17](https://user-images.githubusercontent.com/84644999/175397961-db29bd31-74ea-4938-965b-69cf3027c7fe.png)
 ![Picture18](https://user-images.githubusercontent.com/84644999/175398133-2bb27192-1d58-45a7-bd0e-1da432919ce1.png)
 
-# Live Version
+# Live Version (Not currently live due to temporary lack of funding)
 
 Hosted on Azure Cloud App Services
 
